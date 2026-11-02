@@ -1,0 +1,63 @@
+.tab-scrollbar {
+	position: absolute;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	right: 0;
+
+	/*
+	 * Same total track thickness as the
+	 * vertical content scrollbar.
+	 */
+	height: 24px;
+	background: transparent;
+	visibility: hidden;
+	pointer-events: auto;
+	touch-action: none;
+}
+
+.tab-scrollbar.is-scrollable {
+	visibility: visible;
+}
+
+.tab-scrollbar-thumb {
+	position: absolute;
+	top: 4px;
+	left: 0;
+	width: 0;
+
+	/*
+	 * EXACTLY the same thickness as the
+	 * desktop content scrollbar thumb.
+	 */
+	height: 16px;
+	min-width: 48px;
+	border-radius: 999px;
+	background: var(--navy);
+	cursor: grab;
+	pointer-events: auto;
+	touch-action: none;
+	transition:
+		translate 0.12s ease,
+		background-color 0.12s ease,
+		box-shadow 0.12s ease;
+}
+
+.tab-scrollbar-thumb:hover {
+	background: var(--blue);
+	translate: 0 -2px;
+	box-shadow: 0 2px 6px #071d2b8f;
+}
+
+.tab-scrollbar-thumb.is-dragging {
+	background: var(--blue);
+	translate: 0 -2px;
+	box-shadow: 0 3px 7px #071d2ba6;
+	cursor: grabbing;
+}
+
+html.is-scroll-dragging,
+html.is-scroll-dragging * {
+	cursor: grabbing !important;
+	user-select: none !important;
+}

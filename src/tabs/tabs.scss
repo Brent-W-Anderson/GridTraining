@@ -1,0 +1,185 @@
+html:has(#root),
+body:has(#root) {
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
+	overflow: hidden;
+}
+
+body:has(#root) {
+	display: flex;
+	flex-direction: column;
+}
+
+header {
+	position: relative;
+	z-index: 20;
+	flex: 0 0 auto;
+	width: 100%;
+	border-bottom: 1px solid #c9d7df;
+	background: #fff;
+	box-shadow: 0 2px 10px #071d2b12;
+}
+
+.top {
+	width: 100%;
+	padding-top: 12px;
+}
+
+.title {
+	width: 100%;
+	margin: 0 0 10px;
+	padding-right: 18px;
+	color: var(--navy);
+	font-size: clamp(18px, 2.2vw, 27px);
+	font-weight: 900;
+	line-height: 1.2;
+	text-align: left;
+}
+
+.tabs-wrap {
+	width: 100%;
+	overflow: hidden;
+}
+
+.tabs {
+	display: flex;
+	align-items: flex-end;
+	justify-content: safe center;
+	gap: 6px;
+
+	width: 100%;
+	margin: 0;
+	padding: 0 18px 10px;
+
+	overflow-x: auto;
+	overflow-y: hidden;
+
+	scrollbar-width: none;
+	overscroll-behavior-x: contain;
+
+	scroll-padding-left: 18px;
+	scroll-padding-right: 18px;
+}
+
+.tabs::-webkit-scrollbar {
+	display: none;
+}
+
+.tab {
+	appearance: none;
+	flex: 0 0 auto;
+	min-height: 42px;
+	padding: 9px 14px;
+	border: 1px solid #cbd9e1;
+	border-radius: 10px;
+	background: #f4f8fa;
+	color: var(--navy);
+	font: inherit;
+	font-size: 14px;
+	font-weight: 800;
+	line-height: 1.2;
+	text-decoration: none;
+	white-space: nowrap;
+	cursor: pointer;
+	transition:
+		background-color 0.15s ease,
+		border-color 0.15s ease,
+		color 0.15s ease,
+		box-shadow 0.15s ease,
+		transform 0.1s ease;
+}
+
+.tab:hover {
+	border-color: #8ebdd7;
+	background: #edf7fc;
+}
+
+.tab:active {
+	transform: translateY(1px);
+}
+
+.tab:focus-visible {
+	outline: 3px solid #69bde9;
+	outline-offset: 2px;
+}
+
+.tab.active {
+	border-color: var(--navy);
+	background: var(--navy);
+	color: #fff;
+	box-shadow: 0 3px 10px #103b5728;
+}
+
+.viewer {
+	position: relative;
+	isolation: isolate;
+	flex: 1 1 auto;
+	width: 100%;
+	min-width: 0;
+	min-height: 0;
+	overflow: hidden;
+	background: #eef3f6;
+}
+
+.training-page {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: #eef3f6;
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+}
+
+.training-page.active {
+	z-index: 1;
+	pointer-events: auto;
+}
+
+.training-page.active.page-ready {
+	opacity: 1;
+	visibility: visible;
+}
+
+.react-training-page {
+	overflow-x: hidden;
+	overflow-y: auto;
+	scrollbar-width: none;
+	overscroll-behavior: contain;
+}
+
+.react-training-page::-webkit-scrollbar {
+	display: none;
+}
+
+@media (max-width: 760px) {
+	.top {
+		padding-top: 10px;
+	}
+
+	.title {
+		margin-bottom: 8px;
+		padding-right: 12px;
+	}
+
+	.tabs {
+		gap: 5px;
+		padding: 0 12px 8px;
+
+		scroll-padding-left: 12px;
+		scroll-padding-right: 12px;
+	}
+
+	.tab {
+		min-height: 40px;
+		padding: 8px 11px;
+		font-size: 13px;
+	}
+}

@@ -1,0 +1,73 @@
+@use './components/disclosures/disclosures';
+@use './components/scrollbar/scrollbar';
+@use './pages/pages';
+
+:root {
+	--navy: #0b2b3b;
+	--blue: #1678b5;
+	--teal: #00a7a7;
+	--teal-dark: #007f86;
+	--soft: #eef7f7;
+	--line: #c9d8dc;
+	--muted: #5f6f78;
+	--warning: #fff4d6;
+	--danger: #ffe6e6;
+	--tab-scrollbar-clearance: 0px;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+html {
+	overflow: hidden;
+}
+
+body {
+	overflow: hidden;
+	background: #f5f8f9;
+	color: #17252d;
+	font-family:
+		Inter,
+		Segoe UI,
+		Arial,
+		sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+	font: inherit;
+}
+
+button {
+	color: inherit;
+}
+
+#root {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	min-height: 0;
+}
+
+main {
+	width: 100%;
+	min-height: 100%;
+	padding: 28px 34px 72px;
+}
+
+@media (max-width: 720px) {
+	main {
+		padding: 22px 18px 64px;
+	}
+}

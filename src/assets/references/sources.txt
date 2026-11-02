@@ -1,0 +1,34 @@
+WORKFLOW RESEARCH ADDED 2026-10-30
+
+Connecteam - Operations Hub (Time Clock, Job Scheduler, Forms, Quick Tasks)
+https://help.connecteam.com/en/articles/5949142-the-operations-hub
+
+Connecteam - Starting Guide to the Time Clock
+https://help.connecteam.com/en/articles/10086009-starting-guide-to-the-time-clock
+
+Connecteam - Enabling Location Services / GPS behavior
+https://user-help.connecteam.com/en/articles/9653085-enabling-your-location-services
+
+Connecteam - Breadcrumbs GPS Tracking FAQ for app users
+https://user-help.connecteam.com/en/articles/5912284-breadcrumbs-gps-tracking-faq-for-app-users
+
+Connecteam - Getting Started as a User
+https://help.connecteam.com/en/collections/1570918-getting-started-as-a-user
+
+Google Maps Help - latitude/longitude on computer
+https://support.google.com/maps/answer/18539?co=GENIE.platform%3DDesktop&hl=en
+
+Google Maps Help - latitude/longitude on Android
+https://support.google.com/maps/answer/18539?co=GENIE.Platform%3DAndroid&hl=en-en
+
+Google Maps Help - latitude/longitude on iPhone/iPad
+https://support.google.com/maps/answer/18539?co=GENIE.Platform%3DiOS&hl=en
+
+Quantum Fiber - New service installation
+https://www.quantumfiber.com/support/account/manage-service/new-installation.html
+
+Quantum Fiber - Quantum Fiber app
+https://www.quantumfiber.com/support/account/app.html
+
+RESEARCH LIMITATION
+Public web research did not locate an authoritative GridSource/Quantum technician QMate manual or public GridSource QMate workflow. Therefore this guide does not invent QMate button names, status codes, mandatory fields, sketch symbols, optical thresholds, burial/clearance standards or exact closeout requirements. Those sections are explicitly marked as company-specific gaps to replace with authoritative GridSource material/screenshots as it becomes available.

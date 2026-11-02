@@ -1,0 +1,111 @@
+.troubleshooting-section {
+	scroll-margin-top: 14px;
+}
+
+.ref-body {
+	padding: 16px;
+	border-top: 1px solid var(--line);
+}
+
+.ref-body > :first-child {
+	margin-top: 0;
+}
+
+.ref-body > :last-child {
+	margin-bottom: 0;
+}
+
+/*
+ * Troubleshooting reference images
+ *
+ * Every image gets the same visual canvas so different
+ * source-image dimensions do not make the page look uneven.
+ */
+.ref-images {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 14px;
+	margin: 0 0 16px;
+}
+
+.ref-images.two {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.ref-images img {
+	display: block;
+	width: 100%;
+	height: 260px;
+	padding: 14px;
+	box-sizing: border-box;
+	object-fit: contain;
+	object-position: center;
+	border: 1px solid var(--line);
+	border-radius: 10px;
+	background: var(--soft);
+}
+
+/*
+ * Troubleshooting tool cards
+ */
+.tool-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 16px;
+	margin: 16px 0;
+}
+
+.tool-card {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	min-width: 0;
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	background: #fff;
+	box-shadow: 0 3px 12px #071d2b12;
+}
+
+.tool-card img {
+	display: block;
+	width: 100%;
+	height: 220px;
+	padding: 14px;
+	box-sizing: border-box;
+	object-fit: contain;
+	object-position: center;
+	background: var(--soft);
+}
+
+.tool-card > b {
+	display: block;
+	padding: 12px 14px 4px;
+	color: var(--navy);
+	font-size: 17px;
+}
+
+.tool-card > span {
+	display: block;
+	padding: 4px 14px 14px;
+	color: var(--muted);
+	font-size: 14px;
+	line-height: 1.45;
+}
+
+@media (max-width: 760px) {
+	.ref-images.two {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.tool-grid {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.ref-images img {
+		height: 240px;
+	}
+
+	.tool-card img {
+		height: 220px;
+	}
+}
