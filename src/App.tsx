@@ -9,7 +9,7 @@ import {
 
 import { createRoot } from 'react-dom/client'
 
-import { BrowserRouter, NavLink, useLocation } from 'react-router-dom'
+import { HashRouter, NavLink, useLocation } from 'react-router-dom'
 
 import { trainingConfig } from './assets/config/training'
 
@@ -205,9 +205,9 @@ function RoutePage() {
 
 function App() {
 	return (
-		<BrowserRouter>
+		<HashRouter>
 			<TrainingApp />
-		</BrowserRouter>
+		</HashRouter>
 	)
 }
 
