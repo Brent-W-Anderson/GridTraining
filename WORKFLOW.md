@@ -2,7 +2,8 @@
 
 ## Working Style
 
-- Work from the exact latest project ZIP/snapshot.
+- Work from the exact latest project state pushed to the GitHub `main` branch.
+- Inspect the current GitHub source before making changes.
 - One meaningful checkpoint at a time.
 - Keep explanations concise and code-focused.
 - Fix forward when practical instead of rolling back good architectural progress.
@@ -28,6 +29,7 @@
 ## Tooling
 
 - Use Yarn.
+- Use GitHub `main` as the authoritative project source after changes are committed and pushed.
 - Do not claim typechecks, builds, or tests passed unless they were actually run successfully or Brent reports that they passed.
 
 ## Current Migration Principle

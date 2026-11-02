@@ -7,8 +7,7 @@
         "dev": "vite",
         "build": "tsc && vite build",
         "preview": "vite preview",
-        "typecheck": "tsc",
-        "zip": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/zip.ps1"
+        "typecheck": "tsc"
     },
     "dependencies": {
         "react": "^19.2.0",
