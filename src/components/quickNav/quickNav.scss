@@ -1,9 +1,11 @@
-/* Quick section navigation -------------------------------------------------
-   The rail itself is transparent: only the buttons carry backgrounds and
-   shadows. Top arrow, numbered sections, and bottom arrow are one continuous
-   scrollable stack. Everything stays full-size until the complete stack no
-   longer fits; then all buttons shrink together to 30px. After that, the
-   entire stack scrolls, including both arrows. */
+/*
+ * QuickNav
+ *
+ * Visual styling only.
+ *
+ * Preserve the existing layout calculations, fixed button positions,
+ * scrolling behavior, hover boundaries, and tooltip positioning.
+ */
 
 .quick-nav {
 	position: fixed;
@@ -12,11 +14,6 @@
 	left: 0;
 	display: block;
 
-	/*
-	 * Reserve horizontal breathing room around the visible buttons.
-	 * This is part of the QuickNav boundary, so hover effects can render
-	 * without entering main content or getting clipped.
-	 */
 	padding: 0 14px 0 8px;
 
 	background: transparent;
@@ -32,13 +29,10 @@
 	align-items: center;
 	gap: var(--quick-nav-gap, 10px);
 
-	/*
-	 * The scroller owns the button width plus a fixed visual gutter.
-	 * The actual buttons never move inside this boundary.
-	 */
 	width: calc(var(--quick-button-size, 45px) + 12px);
 	height: 100%;
 	padding: var(--quick-nav-gap, 10px) 6px;
+
 	overflow-y: auto;
 	overflow-x: hidden;
 	overscroll-behavior: contain;
@@ -50,67 +44,132 @@
 	display: none;
 }
 
+/* Shared button appearance */
+
 .quick-nav-button {
 	position: relative;
 	display: grid;
 	place-items: center;
 	flex: 0 0 auto;
+
 	width: var(--quick-button-size, 45px);
 	height: var(--quick-button-size, 45px);
+
 	padding: 0;
-	border: 0;
-	border-radius: 8px;
-	background: white;
+	border: 1px solid #d7e6ef;
+	border-radius: 12px;
+
+	background: linear-gradient(155deg, #ffffff 0%, #f0f7fb 100%);
+
 	color: var(--navy);
+
 	font: inherit;
 	font-size: clamp(16px, calc(var(--quick-button-size, 45px) * 0.44), 20px);
 	font-weight: 850;
 	line-height: 1;
+
 	cursor: pointer;
 	pointer-events: auto;
-	box-shadow: 0 2px 6px #071d2b2b;
+
+	box-shadow:
+		0 3px 9px rgb(7 29 43 / 12%),
+		inset 0 1px 0 rgb(255 255 255 / 90%);
+
 	transform: none;
 
 	transition:
-		background-color 0.15s ease,
-		color 0.15s ease,
-		box-shadow 0.15s ease;
+		background-color 0.18s ease,
+		border-color 0.18s ease,
+		color 0.18s ease,
+		box-shadow 0.18s ease;
 }
 
-.quick-nav-button:hover {
-	background: var(--blue);
-	color: #fff;
-	box-shadow:
-		0 3px 8px #071d2b38,
-		0 0 0 2px #1678b52e;
+/* Number buttons */
+
+.quick-nav-section {
+	font-variant-numeric: tabular-nums;
+	letter-spacing: -0.02em;
 }
+
+.quick-nav-section:hover {
+	border-color: #75b9e0;
+
+	background: linear-gradient(145deg, #238cc6 0%, #126b9d 100%);
+
+	color: #fff;
+
+	box-shadow:
+		0 4px 12px rgb(7 29 43 / 18%),
+		0 0 0 2px rgb(35 140 198 / 16%);
+}
+
+/* Current section */
+
+.quick-nav-section.active {
+	border-color: #164f72;
+
+	background: linear-gradient(145deg, #174e70 0%, #092d45 100%);
+
+	color: #fff;
+
+	box-shadow:
+		0 4px 12px rgb(7 29 43 / 24%),
+		0 0 0 2px rgb(35 140 198 / 17%),
+		inset 0 1px 0 rgb(255 255 255 / 14%);
+}
+
+.quick-nav-section.active:hover {
+	border-color: #75b9e0;
+
+	background: linear-gradient(145deg, #238cc6 0%, #126b9d 100%);
+
+	color: #fff;
+
+	box-shadow:
+		0 4px 12px rgb(7 29 43 / 20%),
+		0 0 0 2px rgb(35 140 198 / 20%);
+}
+
+/* Button interaction */
 
 .quick-nav-button:active {
+	border-color: #0b3048;
 	background: #0b3048;
+	color: #fff;
+
 	box-shadow:
-		inset 0 2px 5px #00000030,
-		0 0 0 2px #103b572e;
+		inset 0 2px 5px rgb(0 0 0 / 20%),
+		0 0 0 2px rgb(16 59 87 / 18%);
+
 	transform: none;
 }
 
-.quick-nav-button.active {
-	background: var(--navy);
-	color: #fff;
-	box-shadow: 0 2px 6px #071d2b55;
+.quick-nav-button:focus-visible {
+	outline: 3px solid #57b9ed;
+	outline-offset: 2px;
 }
 
-.quick-nav-button.active:hover {
-	background: var(--blue);
-	color: #fff;
-	box-shadow:
-		0 3px 8px #071d2b38,
-		0 0 0 2px #1678b52e;
-}
+/* Top and bottom navigation */
 
 .quick-nav-edge {
 	position: relative;
 	z-index: 2;
+
 	flex: 0 0 auto;
+
+	color: var(--navy);
+}
+
+.quick-nav-edge:hover {
+	border-color: #75b9e0;
+
+	background: linear-gradient(145deg, #238cc6 0%, #126b9d 100%);
+
+	color: #fff;
+
+	box-shadow:
+		0 4px 12px rgb(7 29 43 / 18%),
+		0 0 0 2px rgb(35 140 198 / 16%);
 }
 
 .quick-nav-top {
@@ -125,10 +184,13 @@
 .quick-nav-edge::before,
 .quick-nav-edge::after {
 	content: '';
+
 	position: absolute;
 	top: 50%;
+
 	width: 34%;
 	height: max(3px, calc(var(--quick-button-size, 45px) * 0.089));
+
 	border-radius: 999px;
 	background: currentColor;
 }
@@ -153,41 +215,61 @@
 	transform: translateY(-50%) rotate(-45deg);
 }
 
+/* Floating section-name tooltip */
+
 .quick-nav-tooltip {
 	position: fixed;
 	z-index: 20001;
+
 	transform: translateY(-50%);
+
 	width: max-content;
 	max-width: min(360px, calc(100vw - 90px));
-	padding: 10px 14px;
-	border: 1px solid #c8e0ee;
-	border-radius: 9px;
-	background: #fff;
+
+	padding: 13px 18px;
+
+	border: 1px solid #bcd9ea;
+	border-left: 4px solid #238cc6;
+	border-radius: 12px;
+
+	background: linear-gradient(135deg, #ffffff 0%, #f1f8fc 100%);
+
 	color: var(--navy);
+
 	font-size: 17px;
 	font-weight: 800;
-	line-height: 1.3;
+	line-height: 1.4;
+	letter-spacing: -0.01em;
+
 	box-shadow:
-		0 5px 16px #071d2b26,
-		0 1px 3px #071d2b18;
+		0 10px 28px rgb(7 29 43 / 16%),
+		0 2px 6px rgb(7 29 43 / 8%),
+		inset 0 1px 0 rgb(255 255 255 / 90%);
+
 	opacity: 0;
 	visibility: hidden;
 	pointer-events: none;
+
 	transition:
-		opacity 0.08s ease,
-		visibility 0.08s ease;
+		opacity 0.12s ease,
+		visibility 0.12s ease;
 }
 
 .quick-nav-tooltip::before {
 	content: '';
+
 	position: absolute;
 	top: 50%;
-	left: -6px;
-	width: 10px;
-	height: 10px;
-	border-left: 1px solid #c8e0ee;
-	border-bottom: 1px solid #c8e0ee;
-	background: #fff;
+	left: -7px;
+
+	width: 11px;
+	height: 11px;
+
+	border-left: 1px solid #bcd9ea;
+	border-bottom: 1px solid #bcd9ea;
+
+	background: #f8fcfe;
+
 	transform: translateY(-50%) rotate(45deg);
 }
 
@@ -196,21 +278,24 @@
 	visibility: visible;
 }
 
+/* Existing navigation focus feedback */
+
 @keyframes quick-nav-focus-pulse {
 	0% {
-		box-shadow: 0 0 0 0 #8bd9ff00;
+		box-shadow: 0 0 0 0 rgb(139 217 255 / 0%);
 		filter: brightness(1);
 	}
 
 	35% {
 		box-shadow:
-			0 0 0 3px #8bd9ff30,
-			0 0 14px #8bd9ff42;
+			0 0 0 3px rgb(139 217 255 / 19%),
+			0 0 14px rgb(139 217 255 / 26%);
+
 		filter: brightness(1.08);
 	}
 
 	100% {
-		box-shadow: 0 0 0 0 #8bd9ff00;
+		box-shadow: 0 0 0 0 rgb(139 217 255 / 0%);
 		filter: brightness(1);
 	}
 }
@@ -218,6 +303,11 @@
 .quick-nav-focus-pulse {
 	animation: quick-nav-focus-pulse 0.72s ease-out;
 }
+
+/*
+ * Keep navigation visually stable while dragging
+ * the custom content scrollbar.
+ */
 
 html.is-scroll-dragging .quick-nav-button,
 html.is-scroll-dragging .quick-nav-button:hover,
@@ -231,6 +321,25 @@ html.is-scroll-dragging .quick-nav-tooltip {
 	opacity: 0;
 	visibility: hidden;
 }
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+	.quick-nav-button,
+	.quick-nav-tooltip {
+		transition: none;
+	}
+
+	.quick-nav-focus-pulse {
+		animation: none;
+	}
+}
+
+/*
+ * Preserve the current mobile navigation policy.
+ * Mobile QuickNav can be designed separately without
+ * interfering with the existing desktop behavior.
+ */
 
 @media (max-width: 760px) {
 	.quick-nav,

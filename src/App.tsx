@@ -1,11 +1,4 @@
-import {
-	StrictMode,
-	useCallback,
-	useEffect,
-	useLayoutEffect,
-	useRef,
-	useState,
-} from 'react'
+import { StrictMode, useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import { createRoot } from 'react-dom/client'
 
@@ -51,7 +44,6 @@ function TrainingApp() {
 			}
 
 			const tabsRect = tabs.getBoundingClientRect()
-
 			const firstTabRect = firstTab.getBoundingClientRect()
 
 			const left = firstTabRect.left - tabsRect.left + tabs.scrollLeft
@@ -59,11 +51,6 @@ function TrainingApp() {
 			title.style.paddingLeft = `${left}px`
 		}
 
-		/*
-		 * Run the initial alignment during React's
-		 * layout phase so the browser never paints
-		 * the title at its unmeasured position.
-		 */
 		alignTitle()
 
 		const resizeObserver = new ResizeObserver(alignTitle)
@@ -74,7 +61,6 @@ function TrainingApp() {
 
 		return () => {
 			resizeObserver.disconnect()
-
 			window.removeEventListener('resize', alignTitle)
 		}
 	}, [])
@@ -122,55 +108,9 @@ function TrainingApp() {
 function RoutePage() {
 	const pageRef = useRef<HTMLDivElement>(null)
 
-	const readyFrameRef = useRef<number | null>(null)
-
-	const settleFrameRef = useRef<number | null>(null)
-
 	const [scrollContainer, setScrollContainer] = useState<HTMLElement | null>(
 		null,
 	)
-
-	const [pageReady, setPageReady] = useState(false)
-
-	const cancelReadyFrames = useCallback(() => {
-		if (readyFrameRef.current !== null) {
-			cancelAnimationFrame(readyFrameRef.current)
-
-			readyFrameRef.current = null
-		}
-
-		if (settleFrameRef.current !== null) {
-			cancelAnimationFrame(settleFrameRef.current)
-
-			settleFrameRef.current = null
-		}
-	}, [])
-
-	const handlePageReady = useCallback(() => {
-		cancelReadyFrames()
-
-		/*
-		 * Keep the routed page hidden while its
-		 * page effects, QuickNav, content width,
-		 * and scrollbar geometry initialize.
-		 *
-		 * The first frame lets React/effects
-		 * establish their DOM-dependent state.
-		 *
-		 * The second frame lets ResizeObserver
-		 * and the resulting layout measurements
-		 * settle before anything becomes visible.
-		 */
-		readyFrameRef.current = requestAnimationFrame(() => {
-			readyFrameRef.current = null
-
-			settleFrameRef.current = requestAnimationFrame(() => {
-				settleFrameRef.current = null
-
-				setPageReady(true)
-			})
-		})
-	}, [cancelReadyFrames])
 
 	useEffect(() => {
 		const page = pageRef.current
@@ -180,22 +120,15 @@ function RoutePage() {
 		}
 
 		page.scrollTop = 0
-
 		setScrollContainer(page)
-
-		return cancelReadyFrames
-	}, [cancelReadyFrames])
+	}, [])
 
 	return (
 		<>
 			<div
 				ref={pageRef}
-				className={
-					pageReady
-						? 'training-page react-training-page active page-ready'
-						: 'training-page react-training-page active'
-				}>
-				<Pages onPageReady={handlePageReady} />
+				className='training-page react-training-page active page-ready'>
+				<Pages />
 			</div>
 
 			<Scrollbar scrollContainer={scrollContainer} />
