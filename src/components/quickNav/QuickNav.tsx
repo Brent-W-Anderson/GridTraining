@@ -1,6 +1,6 @@
 import {
 	useCallback,
-	useEffect,
+	useLayoutEffect,
 	useRef,
 	useState,
 	type FocusEvent,
@@ -32,17 +32,13 @@ type Tooltip = {
 
 export default function QuickNav({ sections, scrollContainer }: QuickNavProps) {
 	const navRef = useRef<HTMLElement>(null)
-
 	const pinnedIndex = useRef<number | null>(null)
 
 	const [activeIndex, setActiveIndex] = useState(0)
-
 	const [tooltip, setTooltip] = useState<Tooltip | null>(null)
 
 	const updateLayout = useCallback(() => {
-		if (!scrollContainer) {
-			return
-		}
+		if (!scrollContainer) return
 
 		setTooltip(null)
 
@@ -54,13 +50,10 @@ export default function QuickNav({ sections, scrollContainer }: QuickNavProps) {
 	}, [scrollContainer, sections.length])
 
 	const updateActiveSection = useCallback(() => {
-		if (!scrollContainer || !sections.length) {
-			return
-		}
+		if (!scrollContainer || !sections.length) return
 
 		if (pinnedIndex.current !== null) {
 			setActiveIndex(pinnedIndex.current)
-
 			return
 		}
 
@@ -71,12 +64,10 @@ export default function QuickNav({ sections, scrollContainer }: QuickNavProps) {
 
 		if (maxScroll > 2 && scrollContainer.scrollTop >= maxScroll - 2) {
 			setActiveIndex(sections.length - 1)
-
 			return
 		}
 
 		const marker = scrollContainer.getBoundingClientRect().top + 28
-
 		let nextActive = 0
 
 		sections.forEach((section, index) => {
@@ -95,17 +86,13 @@ export default function QuickNav({ sections, scrollContainer }: QuickNavProps) {
 
 	const releasePinned = useCallback(() => {
 		pinnedIndex.current = null
-
 		requestAnimationFrame(updateActiveSection)
 	}, [updateActiveSection])
 
-	useEffect(() => {
-		if (!scrollContainer) {
-			return
-		}
+	useLayoutEffect(() => {
+		if (!scrollContainer) return
 
 		const container = scrollContainer
-
 		const resizeObserver = new ResizeObserver(updateLayout)
 
 		const handleKeyDown = (event: KeyboardEvent) => {
@@ -124,30 +111,27 @@ export default function QuickNav({ sections, scrollContainer }: QuickNavProps) {
 			}
 		}
 
-		const handleToggle = () => requestAnimationFrame(updateActiveSection)
+		const handleToggle = () => {
+			requestAnimationFrame(updateActiveSection)
+		}
 
 		updateLayout()
-
-		requestAnimationFrame(updateActiveSection)
+		updateActiveSection()
 
 		resizeObserver.observe(container)
 
 		container.addEventListener('scroll', updateActiveSection, {
 			passive: true,
 		})
-
 		container.addEventListener('wheel', releasePinned, {
 			passive: true,
 		})
-
 		container.addEventListener('touchstart', releasePinned, {
 			passive: true,
 		})
 
 		window.addEventListener('resize', updateLayout)
-
 		window.addEventListener('manual-scroll-start', releasePinned)
-
 		window.addEventListener('keydown', handleKeyDown)
 
 		sections.forEach(section => {
@@ -162,15 +146,11 @@ export default function QuickNav({ sections, scrollContainer }: QuickNavProps) {
 			resizeObserver.disconnect()
 
 			container.removeEventListener('scroll', updateActiveSection)
-
 			container.removeEventListener('wheel', releasePinned)
-
 			container.removeEventListener('touchstart', releasePinned)
 
 			window.removeEventListener('resize', updateLayout)
-
 			window.removeEventListener('manual-scroll-start', releasePinned)
-
 			window.removeEventListener('keydown', handleKeyDown)
 
 			sections.forEach(section => {
@@ -203,29 +183,21 @@ export default function QuickNav({ sections, scrollContainer }: QuickNavProps) {
 	}
 
 	function scrollToSection(index: number) {
-		if (!scrollContainer) {
-			return
-		}
+		if (!scrollContainer) return
 
 		const section = sections[index]
-
 		const element = section ? getSectionElement(section) : null
 
-		if (!element) {
-			return
-		}
+		if (!element) return
 
 		setTooltip(null)
-
 		pinnedIndex.current = index
-
 		setActiveIndex(index)
 
 		openSection(element)
 
 		requestAnimationFrame(() => {
 			const target = getSectionTarget(element)
-
 			const containerTop = scrollContainer.getBoundingClientRect().top
 
 			const top =
@@ -244,16 +216,13 @@ export default function QuickNav({ sections, scrollContainer }: QuickNavProps) {
 	}
 
 	function scrollToEdge(edge: 'top' | 'bottom') {
-		if (!scrollContainer || !sections.length) {
-			return
-		}
+		if (!scrollContainer || !sections.length) return
 
 		setTooltip(null)
 
 		const index = edge === 'top' ? 0 : sections.length - 1
 
 		pinnedIndex.current = index
-
 		setActiveIndex(index)
 
 		scrollContainer.scrollTo({
@@ -270,9 +239,7 @@ export default function QuickNav({ sections, scrollContainer }: QuickNavProps) {
 		)
 	}
 
-	if (!sections.length) {
-		return null
-	}
+	if (!sections.length) return null
 
 	return (
 		<>

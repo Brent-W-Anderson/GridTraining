@@ -1,17 +1,20 @@
+
 export type TrainingPageId =
-	| 'role-page'
-	| 'manual-page'
-	| 'cheat-page'
-	| 'troubleshooting-page'
 	| 'acronyms-page'
+	| 'role-page'
+	| 'distribution-page'
+	| 'outside-page'
+	| 'inside-page'
+	| 'troubleshooting-page'
 	| 'inventory-page'
 
 export type TrainingPagePath =
-	| '/'
-	| '/manual'
-	| '/cheat'
-	| '/troubleshooting'
 	| '/acronyms'
+	| '/'
+	| '/distribution'
+	| '/outside'
+	| '/inside'
+	| '/troubleshooting'
 	| '/inventory'
 
 export type TrainingPageConfig = {
@@ -22,82 +25,20 @@ export type TrainingPageConfig = {
 }
 
 export const trainingConfig = {
-	appTitle:
-		'Fiber Installation & Repair Technician Training',
-
-	tabAriaLabel:
-		'Training sections',
-
-	pageNavigationAriaLabel:
-		'Training page navigation',
-
+	appTitle: 'Fiber Installation & Repair Technician Training',
+	tabAriaLabel: 'Training sections',
+	pageNavigationAriaLabel: 'Training page navigation',
 	navigationLabels: {
-		previous:
-			'Previous',
-		next:
-			'Next',
+		previous: 'Previous',
+		next: 'Next',
 	},
-
 	pages: [
-		{
-			id:
-				'role-page',
-			path:
-				'/',
-			tabLabel:
-				'I · Role & Network',
-			title:
-				'Role and Network',
-		},
-		{
-			id:
-				'manual-page',
-			path:
-				'/manual',
-			tabLabel:
-				'II · Learning Manual',
-			title:
-				'Learning Manual',
-		},
-		{
-			id:
-				'cheat-page',
-			path:
-				'/cheat',
-			tabLabel:
-				'III · Field Cheat Sheet',
-			title:
-				'Field Cheat Sheet',
-		},
-		{
-			id:
-				'troubleshooting-page',
-			path:
-				'/troubleshooting',
-			tabLabel:
-				'IV · Troubleshooting',
-			title:
-				'Troubleshooting',
-		},
-		{
-			id:
-				'acronyms-page',
-			path:
-				'/acronyms',
-			tabLabel:
-				'V · Acronym Reference',
-			title:
-				'Acronym Reference',
-		},
-		{
-			id:
-				'inventory-page',
-			path:
-				'/inventory',
-			tabLabel:
-				'VI · Tools & Inventory',
-			title:
-				'Tools and Inventory',
-		},
+		{ id: 'acronyms-page', path: '/acronyms', tabLabel: '00 · Acronyms', title: 'Acronyms' },
+		{ id: 'role-page', path: '/', tabLabel: '01 · Role & Network', title: 'Role & Network' },
+		{ id: 'distribution-page', path: '/distribution', tabLabel: '02 · FDH & Distribution', title: 'FDH & Distribution' },
+		{ id: 'outside-page', path: '/outside', tabLabel: '03 · Outside Installation', title: 'Outside Installation' },
+		{ id: 'inside-page', path: '/inside', tabLabel: '04 · Inside Installation', title: 'Inside Installation' },
+		{ id: 'troubleshooting-page', path: '/troubleshooting', tabLabel: '05 · Troubleshooting', title: 'Troubleshooting' },
+		{ id: 'inventory-page', path: '/inventory', tabLabel: '06 · Tools & Inventory', title: 'Tools & Inventory' },
 	] satisfies TrainingPageConfig[],
 } as const

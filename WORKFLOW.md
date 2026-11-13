@@ -2,60 +2,76 @@
 
 ## Working Style
 
-- Work from the exact latest project snapshot provided by the user, or current GitHub `main` when that is the requested source. Do not assume an older snapshot is current.
-- Inspect relevant source files before making changes.
-- Complete one meaningful checkpoint at a time, keeping the seven training priorities below intact.
-- Keep explanations concise and code-focused. Fix forward without redesigning unrelated systems.
+- Work from the latest user-provided snapshot or explicitly requested GitHub branch; inspect affected files before editing.
+- One focused checkpoint at a time. Fix forward; do not redesign unrelated working code.
+- Keep responses brief, practical, and code-focused.
+- Show the **complete contents of every changed file directly in chat**, without omissions or snippet-only replacements.
+- Preserve working tabs, QuickNav, scrollbars, and page behavior unless the checkpoint explicitly changes them.
+- Never claim tests or builds passed without actually running them.
 
-## Code Delivery
+## Mission: Visual Field Companion
 
-- Show the **complete contents of every changed file directly in chat**, ready to copy and paste. Do not substitute download links or abbreviated snippets.
-- Large files may be split into clearly labeled consecutive parts, with no omitted lines.
-- Preserve existing working behavior, QuickNav, tabs, and scrollbars unless explicitly changing them.
-- Never claim a build, typecheck, or test passed unless it was actually run successfully.
+GridTraining is a mobile-friendly, step-by-step field companion for residential fiber Installation & Repair technicians, including technicians with limited English proficiency.
 
-## Training Mission
+**Show the work rather than describe it.**
 
-Create an accurate, practical, beginner-friendly and field-useful residential fiber Installation & Repair reference for GridSource technicians working with AT&T and legacy Quantum Fiber infrastructure. The app must work well on phones. Keep explanations short and clear without omitting details needed to perform the job safely and correctly. Do not add quizzes or tests.
+No filler, long introductions, repeated explanations, quizzes, or unnecessary reading.
 
-### Seven Curriculum Priorities (Authoritative)
+- **Diagrams first:** Show connections, routing, equipment placement, and expected finished work.
+- **Real equipment photos and relevant demonstration videos:** Prioritize close-ups and visible actions over narration.
+- **One action per step:** Short labels and direct instructions, with a corresponding visual.
+- **Complete job workflows:** Start → installation or diagnosis → verification → documentation.
+- **Essential text only:** Keep acronyms, troubleshooting, safety, warnings, and necessary descriptions.
+- **Safety and accuracy are never sacrificed for brevity.** Use approved provider and manufacturer procedures for clearances, utility work, live fiber, testing, and activation.
 
-1. **The complete residential fiber network** — OLT → FDH → distribution terminal → drop → ONT → gateway → customer devices.
-2. **FDH cabinets and fiber assignments** — cabinet anatomy, splitter ports, cross-connects, labeling, and mispatch troubleshooting. Include detailed instruction for finding assigned ports and tracing a customer's documented path, supported by trustworthy diagrams and relevant training videos.
-3. **MLT / MST terminals and customer drops** — terminal identification, port assignments, drop connections, and field faults. Confirm what “MLT” means in the team's terminology; do not assume it is synonymous with MST.
-4. **ONTs, gateways, and service activation** — optical status, registration, provisioning, and residential equipment.
-5. **Fiber testing and repair** — optical power, dB/dBm, connectors, cleaning, fault isolation, and escalation.
-6. **WAN, LAN, and residential Wi-Fi** — router configuration, IP connectivity, Wi-Fi coverage, mesh systems, and pods.
-7. **Fast field references** — symptoms, diagnostic sequences, equipment pictures, and common mistakes.
+## Main Navigation (Target Structure)
 
-### Where Content Belongs
+1. **Role & Network** — Finished page; preserve unchanged.
+2. **Outside Installation** — Aerial drops, buried drops, routing, attachments, slack boxes, house entry; distinct complete walkthroughs within one tab.
+3. **FDH & Distribution** — FDH cabinets, splitters, documented assignments, terminals, Calix equipment, residential and apartment/MDU distribution. FDH is a passive distribution hub; Calix is a manufacturer, not an equivalent term.
+4. **Inside Installation** — ONT/SmartNID, gateway, activation, Ethernet, Wi-Fi, and customer-device verification.
+5. **Troubleshooting** — Preserve current page initially; later improve visual symptom-driven fault isolation.
+6. **Field Cheat Sheet** — Preserve current page; fast diagrams, measurements, and checklists.
+7. **Acronyms** — Preserve current reference.
+8. **Tools & Inventory** — Preserve current reference.
 
-- **Role & Network (Tab 1):** Short introduction to technician responsibilities, service path, field work, and troubleshooting mindset. Four QuickNav chapters; avoid turning it into the full technical manual.
-- **Learning Manual (Tab 2):** Teach the seven priorities in appropriate detail, especially FDH identification and fiber assignments. Use clear diagrams, equipment pictures, and verified video resources where helpful.
-- **Troubleshooting:** Practical symptom-driven fault isolation and escalation.
-- **Field Cheat Sheet:** Concise, mobile-friendly references and procedures.
-- **Acronyms:** Fast definitions of technical terms.
-- **Tools & Inventory:** Equipment recognition, purpose, safe use, and maintenance.
+The old Learning Manual content must be **reorganized, not discarded**, into the appropriate job topics.
 
-These destinations organize the curriculum; they do not replace or renumber its seven priorities. Avoid repeating long explanations across tabs: link or refer to the detailed owner where possible.
+Avoid duplicate authoritative explanations.
 
-## Content Accuracy and Safety
+The seven earlier curriculum priorities remain subject matter to cover, **not seven required manual chapters**.
 
-- Distinguish general fiber/PON principles, equipment-specific documentation, provider procedures, and GridSource-specific practices.
-- Verify technical details against authoritative manufacturer or industry sources. Never invent port numbering, optical thresholds, provisioning steps, or work permissions.
-- Treat work orders, facility records, labels, and observed connections as separate evidence. If they conflict, use approved verification/escalation procedures rather than guessing or moving live jumpers.
-- Include relevant training videos where they materially improve understanding, and explain what each actually demonstrates.
+## Standard Walkthrough
 
-## Design and Architecture
+1. **Whole-job diagram** — What connects where and what completion looks like.
+2. **Demonstration** — Relevant real-world photos/video when available and verified.
+3. **Illustrated steps** — One action per step, minimal wording.
+4. **Verification** — Concise tests, visual checks, documentation, and escalation criteria.
 
-- React + TypeScript + Vite + SCSS, using Yarn.
-- Keep substantive training content in typed config files; React components own presentation and interaction; SCSS lives with the owning page/component.
-- Keep the existing polished chapter-card design: icons, chapter numbers, short descriptions, full-card tap targets, clear open/closed state, and accessible keyboard behavior.
-- Prioritize mobile field use: readable text, generous tap targets, restrained colors for tips/warnings/safety, and no page-wide horizontal overflow. Prefer a plain chevron without a decorative circle.
-- Preserve the current navigation and layout systems unless a specific change requires modifying them.
+Build **Outside Installation → Aerial Drop** as the first model walkthrough after the navigation checkpoint.
 
-## Validation
+## Technical Accuracy
 
-- Run Yarn typecheck/build when execution is available; report exactly what was and was not verified.
-- Review small-screen behavior, expandable sections, QuickNav, tables, images, and links when possible.
-- Update this workflow only when project goals, rules, or architecture materially change; keep it concise and curated.
+- Distinguish general fiber/PON principles, manufacturer-specific equipment, provider rules, and GridSource practices.
+- Verify manufacturer links and technical claims; never invent port numbering, optical thresholds, provisioning procedures, or work permissions.
+- Use work orders, facility records, labels, and observed connections as separate evidence.
+- Resolve conflicts through approved verification/escalation; never guess or move unverified live jumpers.
+- Distinguish MLT from MST until the team's local terminology is confirmed.
+
+## Architecture and Design
+
+- React + TypeScript + Vite + SCSS with Yarn.
+- Put substantial lesson text, diagram labels/data, video references, and equipment details in **typed config**.
+- TSX owns rendering and interactions; SCSS is colocated with its owner.
+- Use responsibility-focused page/component directories.
+- Split specialized visuals into dedicated components only when warranted.
+- Maintain accessible expandable cards, working QuickNav, responsive layouts, large touch targets, and no horizontal overflow.
+- Reuse the finished Role & Network visual language without modifying that page.
+
+## Checkpoints and Validation
+
+1. Restructure main navigation only; preserve existing working pages and scrolling.
+2. Build the Aerial Drop visual walkthrough and establish its reusable pattern.
+3. Expand other job workflows one focused checkpoint at a time.
+4. Run Yarn typecheck/build when available; accurately report what was verified.
+5. Update this document only when the goals, structure, or development rules materially change; keep it concise.

@@ -1,0 +1,286 @@
+/* Shared light theme and consistent chapter spacing. */
+
+:root {
+	--training-ink: #183c55;
+	--training-muted: #526674;
+	--training-accent: #126b9f;
+	--training-border: #c9d8dc;
+	--training-surface: #f6fafc;
+	--training-chapter-gap: 12px;
+}
+
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+	outline: 3px solid #126b9f;
+	outline-offset: 3px;
+}
+
+main {
+	color: #17252d;
+	overflow-wrap: anywhere;
+
+	.section-card {
+		margin: 0;
+		overflow: hidden;
+		border: 1px solid var(--training-border);
+		border-radius: 14px;
+		background: #fff;
+		box-shadow: 0 8px 24px rgb(20 54 75 / 5%);
+
+		> summary {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 16px;
+			min-height: 64px;
+			padding: 20px;
+			background: #fff;
+			color: var(--training-ink);
+			cursor: pointer;
+			transition: background-color 160ms ease;
+
+			b {
+				color: inherit;
+				font-size: 20px;
+				line-height: 1.3;
+			}
+
+			.plus {
+				display: grid;
+				place-items: center;
+				background: #b8dced;
+				color: #104e73;
+				border: 1px solid #6fa8c6;
+				border-radius: 9px;
+				box-shadow: none;
+			}
+
+			&:hover {
+				background: #dceef8;
+
+				.plus {
+					background: #126b9f;
+					color: #fff;
+					border-color: #126b9f;
+				}
+			}
+
+			&:focus-visible {
+				background: #dceef8;
+				outline: 3px solid #126b9f;
+				outline-offset: -3px;
+
+				.plus {
+					background: #126b9f;
+					color: #fff;
+					border-color: #126b9f;
+				}
+			}
+		}
+
+		&[open] > summary {
+			border-bottom: 1px solid var(--training-border);
+		}
+
+		> .section-body {
+			padding: 20px;
+			background: #fff;
+			color: #17252d;
+		}
+	}
+
+	.ref-card > summary,
+	.term-guide > summary {
+		background: #f6fafc;
+		color: var(--training-ink);
+
+		.plus {
+			background: #b8dced;
+			color: #104e73;
+			border: 1px solid #6fa8c6;
+		}
+
+		&:hover,
+		&:focus-visible {
+			background: #dceef8;
+
+			.plus {
+				background: #126b9f;
+				color: #fff;
+				border-color: #126b9f;
+			}
+		}
+	}
+
+	.training-chapter-number,
+	.training-chapter-icon {
+		color: var(--training-accent);
+	}
+
+	.training-chapter-description {
+		color: var(--training-muted);
+	}
+}
+
+/* Consistent chapter spacing across all seven tabs. */
+
+.page {
+	> .role-chapters,
+	> .training-chapters,
+	> .chapters {
+		display: grid;
+		gap: var(--training-chapter-gap);
+	}
+
+	> .section-card + .section-card {
+		margin-top: var(--training-chapter-gap);
+	}
+
+	.role-chapters > .section-card,
+	.training-chapters > .section-card,
+	.chapters > .section-card {
+		margin: 0;
+	}
+
+	.role-chapters,
+	.training-chapters,
+	.chapters {
+		> details {
+			margin-block: 0;
+		}
+	}
+}
+
+/* Preserve Role & Network styling and improve contrast. */
+
+.role-page {
+	--role-accent: #126b9f;
+	--role-muted: #526674;
+
+	.role-chapters {
+		gap: var(--training-chapter-gap);
+	}
+
+	.role-chapter {
+		margin: 0;
+	}
+}
+
+/* New installation pages. */
+
+.job-overview {
+	.training-chapters {
+		gap: var(--training-chapter-gap);
+	}
+
+	.training-chapter {
+		margin: 0;
+	}
+
+	.training-path {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 8px;
+		margin: 16px 0;
+		color: var(--training-ink);
+		font-size: 14px;
+		line-height: 1.5;
+
+		> span {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			min-width: 0;
+		}
+
+		b {
+			padding: 8px 12px;
+			border: 1px solid var(--training-border);
+			border-radius: 9px;
+			background: #eaf5fc;
+		}
+
+		.training-path-arrow {
+			color: var(--training-accent);
+			font-weight: 800;
+		}
+	}
+
+	.training-steps {
+		display: grid;
+		gap: 12px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		counter-reset: training-step;
+
+		li {
+			display: flex;
+			align-items: flex-start;
+			gap: 14px;
+			min-width: 0;
+			margin: 0;
+			padding: 14px;
+			border: 1px solid var(--training-border);
+			border-radius: 12px;
+			background: #f9fcfe;
+			line-height: 1.6;
+			counter-increment: training-step;
+
+			&::before {
+				content: counter(training-step, decimal-leading-zero);
+				display: grid;
+				place-items: center;
+				flex: 0 0 38px;
+				height: 38px;
+				border-radius: 10px;
+				background: #eaf5fc;
+				color: var(--training-accent);
+				font-size: 13px;
+				font-weight: 900;
+			}
+		}
+	}
+}
+
+@media (max-width: 600px) {
+	main .section-card {
+		border-radius: 12px;
+
+		> summary {
+			gap: 12px;
+			padding: 16px;
+
+			b {
+				font-size: 17px;
+			}
+		}
+
+		> .section-body {
+			padding: 16px;
+		}
+	}
+
+	.grid,
+	.two-col,
+	.three-col {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.job-overview .training-path {
+		font-size: 14px;
+
+		b {
+			padding: 7px 9px;
+		}
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	main .section-card,
+	main .section-card > summary,
+	main summary .plus,
+	.training-chapter-chevron {
+		transition: none;
+	}
+}

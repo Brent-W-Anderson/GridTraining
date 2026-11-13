@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 
 type ScrollbarProps = {
 	scrollContainer: HTMLElement | null
@@ -19,10 +19,8 @@ function getWheelPixels(event: WheelEvent, pageSize: number) {
 	switch (event.deltaMode) {
 		case WheelEvent.DOM_DELTA_LINE:
 			return rawDelta * 40
-
 		case WheelEvent.DOM_DELTA_PAGE:
 			return rawDelta * pageSize
-
 		default:
 			return rawDelta
 	}
@@ -30,12 +28,10 @@ function getWheelPixels(event: WheelEvent, pageSize: number) {
 
 export default function Scrollbar({ scrollContainer }: ScrollbarProps) {
 	const scrollbarRef = useRef<HTMLDivElement>(null)
-
 	const thumbRef = useRef<HTMLDivElement>(null)
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const scrollbarElement = scrollbarRef.current
-
 		const thumbElement = thumbRef.current
 
 		if (!scrollContainer || !scrollbarElement || !thumbElement) {
@@ -43,29 +39,21 @@ export default function Scrollbar({ scrollContainer }: ScrollbarProps) {
 		}
 
 		const container = scrollContainer
-
 		const scrollbar = scrollbarElement
-
 		const thumb = thumbElement
 
 		const tabScrollbar =
 			document.querySelector<HTMLElement>('.tab-scrollbar')
 
 		let dragging = false
-
 		let dragPointerId: number | null = null
-
 		let pointerOffset = 0
-
 		let dragMetrics: ScrollMetrics | null = null
-
 		let dragTrackTop = 0
-
 		let updateFrame = 0
 
 		function getTopOffset() {
 			const containerRect = container.getBoundingClientRect()
-
 			let top = Math.max(8, containerRect.top + 8)
 
 			if (
@@ -82,9 +70,7 @@ export default function Scrollbar({ scrollContainer }: ScrollbarProps) {
 
 		function getMetrics(): ScrollMetrics {
 			const viewportHeight = container.clientHeight
-
 			const trackHeight = scrollbar.clientHeight
-
 			const contentHeight = container.scrollHeight
 
 			const maxScroll = Math.max(0, contentHeight - viewportHeight)
@@ -137,26 +123,18 @@ export default function Scrollbar({ scrollContainer }: ScrollbarProps) {
 
 			if (metrics.maxScroll <= 0 || metrics.travel <= 0) {
 				scrollbar.style.visibility = 'hidden'
-
 				thumb.style.height = '0px'
-
 				thumb.style.transform = 'translateY(0px)'
-
 				return
 			}
 
 			scrollbar.style.visibility = 'visible'
-
 			thumb.style.height = `${metrics.thumbHeight}px`
-
 			thumb.style.transform = `translateY(${getThumbTop(metrics)}px)`
 		}
 
 		function scheduleThumbUpdate() {
-			if (updateFrame) {
-				return
-			}
-
+			if (updateFrame) return
 			updateFrame = requestAnimationFrame(updateThumb)
 		}
 
@@ -185,34 +163,24 @@ export default function Scrollbar({ scrollContainer }: ScrollbarProps) {
 		}
 
 		function startDragging(event: PointerEvent) {
-			if (event.button !== 0) {
-				return
-			}
+			if (event.button !== 0) return
 
 			const metrics = getMetrics()
 
-			if (metrics.maxScroll <= 0 || metrics.travel <= 0) {
-				return
-			}
+			if (metrics.maxScroll <= 0 || metrics.travel <= 0) return
 
 			dispatchManualScroll()
 
 			const trackRect = scrollbar.getBoundingClientRect()
 
 			dragging = true
-
 			dragPointerId = event.pointerId
-
 			dragMetrics = metrics
-
 			dragTrackTop = trackRect.top
-
 			pointerOffset = event.clientY - dragTrackTop - getThumbTop(metrics)
 
 			thumb.classList.add('dragging')
-
 			document.documentElement.classList.add('scrollbar-dragging')
-
 			thumb.setPointerCapture(event.pointerId)
 
 			event.preventDefault()
@@ -220,24 +188,17 @@ export default function Scrollbar({ scrollContainer }: ScrollbarProps) {
 		}
 
 		function stopDragging(event?: PointerEvent) {
-			if (!dragging) {
-				return
-			}
+			if (!dragging) return
 
 			const pointerId = event?.pointerId ?? dragPointerId
 
 			dragging = false
-
 			dragPointerId = null
-
 			dragMetrics = null
-
 			dragTrackTop = 0
-
 			pointerOffset = 0
 
 			thumb.classList.remove('dragging')
-
 			document.documentElement.classList.remove('scrollbar-dragging')
 
 			if (pointerId !== null && thumb.hasPointerCapture(pointerId)) {
@@ -256,26 +217,20 @@ export default function Scrollbar({ scrollContainer }: ScrollbarProps) {
 			}
 
 			scrollFromPointer(event.clientY)
-
 			event.preventDefault()
 			event.stopPropagation()
 		}
 
 		function handleTrackPointerDown(event: PointerEvent) {
-			if (event.target === thumb || event.button !== 0) {
-				return
-			}
+			if (event.target === thumb || event.button !== 0) return
 
 			const metrics = getMetrics()
 
-			if (metrics.maxScroll <= 0 || metrics.travel <= 0) {
-				return
-			}
+			if (metrics.maxScroll <= 0 || metrics.travel <= 0) return
 
 			dispatchManualScroll()
 
 			const rect = scrollbar.getBoundingClientRect()
-
 			const requestedTop =
 				event.clientY - rect.top - metrics.thumbHeight / 2
 
@@ -293,18 +248,13 @@ export default function Scrollbar({ scrollContainer }: ScrollbarProps) {
 		function handleWheel(event: WheelEvent) {
 			const metrics = getMetrics()
 
-			if (metrics.maxScroll <= 0) {
-				return
-			}
+			if (metrics.maxScroll <= 0) return
 
 			const delta = getWheelPixels(event, container.clientHeight)
 
-			if (!delta) {
-				return
-			}
+			if (!delta) return
 
 			const atStart = container.scrollTop <= 0
-
 			const atEnd = container.scrollTop >= metrics.maxScroll
 
 			if ((delta < 0 && atStart) || (delta > 0 && atEnd)) {
@@ -312,15 +262,6 @@ export default function Scrollbar({ scrollContainer }: ScrollbarProps) {
 			}
 
 			dispatchManualScroll()
-
-			/*
-			 * Move the real scroll position directly.
-			 *
-			 * Do not use scrollBy({ behavior: 'auto' })
-			 * here. "auto" can inherit CSS scroll-behavior
-			 * and turn each wheel event into another smooth
-			 * animation.
-			 */
 			container.scrollTop += delta
 
 			event.preventDefault()
@@ -331,15 +272,11 @@ export default function Scrollbar({ scrollContainer }: ScrollbarProps) {
 		}
 
 		thumb.addEventListener('pointerdown', startDragging)
-
 		thumb.addEventListener('pointermove', handlePointerMove)
-
 		thumb.addEventListener('pointerup', stopDragging)
-
 		thumb.addEventListener('pointercancel', stopDragging)
 
 		scrollbar.addEventListener('pointerdown', handleTrackPointerDown)
-
 		scrollbar.addEventListener('wheel', handleWheel, {
 			passive: false,
 		})
@@ -349,11 +286,9 @@ export default function Scrollbar({ scrollContainer }: ScrollbarProps) {
 		})
 
 		window.addEventListener('resize', scheduleThumbUpdate)
-
 		window.addEventListener('blur', handleWindowBlur)
 
 		const resizeObserver = new ResizeObserver(scheduleThumbUpdate)
-
 		resizeObserver.observe(container)
 
 		let observedMain: Element | null = null
@@ -361,16 +296,13 @@ export default function Scrollbar({ scrollContainer }: ScrollbarProps) {
 		function observeMain() {
 			const main = container.querySelector('main')
 
-			if (!main || main === observedMain) {
-				return
-			}
+			if (!main || main === observedMain) return
 
 			if (observedMain) {
 				resizeObserver.unobserve(observedMain)
 			}
 
 			observedMain = main
-
 			resizeObserver.observe(main)
 		}
 
@@ -378,7 +310,6 @@ export default function Scrollbar({ scrollContainer }: ScrollbarProps) {
 
 		const contentObserver = new MutationObserver(() => {
 			observeMain()
-
 			scheduleThumbUpdate()
 		})
 
@@ -399,14 +330,11 @@ export default function Scrollbar({ scrollContainer }: ScrollbarProps) {
 		}
 
 		function observeImage(image: HTMLImageElement) {
-			if (image.complete) {
-				return
-			}
+			if (image.complete) return
 
 			image.addEventListener('load', scheduleThumbUpdate, {
 				once: true,
 			})
-
 			image.addEventListener('error', scheduleThumbUpdate, {
 				once: true,
 			})
@@ -419,9 +347,7 @@ export default function Scrollbar({ scrollContainer }: ScrollbarProps) {
 		const imageObserver = new MutationObserver(mutations => {
 			mutations.forEach(mutation => {
 				mutation.addedNodes.forEach(node => {
-					if (!(node instanceof Element)) {
-						return
-					}
+					if (!(node instanceof Element)) return
 
 					if (node instanceof HTMLImageElement) {
 						observeImage(node)
@@ -439,7 +365,7 @@ export default function Scrollbar({ scrollContainer }: ScrollbarProps) {
 			subtree: true,
 		})
 
-		scheduleThumbUpdate()
+		updateThumb()
 
 		return () => {
 			if (updateFrame) {
@@ -449,29 +375,21 @@ export default function Scrollbar({ scrollContainer }: ScrollbarProps) {
 			stopDragging()
 
 			thumb.removeEventListener('pointerdown', startDragging)
-
 			thumb.removeEventListener('pointermove', handlePointerMove)
-
 			thumb.removeEventListener('pointerup', stopDragging)
-
 			thumb.removeEventListener('pointercancel', stopDragging)
 
 			scrollbar.removeEventListener('pointerdown', handleTrackPointerDown)
-
 			scrollbar.removeEventListener('wheel', handleWheel)
 
 			container.removeEventListener('scroll', scheduleThumbUpdate)
 
 			window.removeEventListener('resize', scheduleThumbUpdate)
-
 			window.removeEventListener('blur', handleWindowBlur)
 
 			resizeObserver.disconnect()
-
 			contentObserver.disconnect()
-
 			imageObserver.disconnect()
-
 			tabScrollbarObserver?.disconnect()
 		}
 	}, [scrollContainer])

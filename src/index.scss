@@ -1,15 +1,21 @@
 @use './components/disclosures/disclosures';
 @use './components/scrollbar/scrollbar';
 @use './pages/pages';
+@use './components/quickNav/quickNav';
+@use './assets/styles/light';
+@use './assets/styles/chapter';
 
 :root {
+	color-scheme: light;
+
 	--navy: #0b2b3b;
-	--blue: #1678b5;
-	--teal: #00a7a7;
-	--teal-dark: #007f86;
+	--blue: #126b9f;
+	--teal: #007f86;
+	--teal-dark: #006b72;
 	--soft: #eef7f7;
+	--light-blue: #edf7fc;
 	--line: #c9d8dc;
-	--muted: #5f6f78;
+	--muted: #526674;
 	--warning: #fff4d6;
 	--danger: #ffe6e6;
 	--tab-scrollbar-clearance: 0px;
@@ -27,12 +33,12 @@ body,
 	margin: 0;
 }
 
-html {
+html,
+body {
 	overflow: hidden;
 }
 
 body {
-	overflow: hidden;
 	background: #f5f8f9;
 	color: #17252d;
 	font-family:

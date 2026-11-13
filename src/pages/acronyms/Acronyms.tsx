@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 
 import { acronymContent, type Acronym } from '../../assets/config/acronyms'
 
+import TrainingChapter from '../../components/trainingChapter/TrainingChapter'
 import Disclosures from '../../components/disclosures/Disclosures'
 import QuickNav from '../../components/quickNav/QuickNav'
-
-import '../../components/quickNav/quickNav.scss'
 
 function AcronymCard({ acronym }: { acronym: Acronym }) {
 	return (
@@ -21,7 +20,6 @@ function AcronymCard({ acronym }: { acronym: Acronym }) {
 
 				<p>
 					<b>{acronymContent.fieldLabel}</b>
-
 					{acronym.field}
 				</p>
 			</div>
@@ -31,22 +29,17 @@ function AcronymCard({ acronym }: { acronym: Acronym }) {
 
 export default function Acronyms() {
 	const pageRef = useRef<HTMLElement>(null)
-
 	const [page, setPage] = useState<HTMLElement | null>(null)
-
 	const [scrollContainer, setScrollContainer] = useState<HTMLElement | null>(
 		null,
 	)
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const currentPage = pageRef.current
 
-		if (!currentPage) {
-			return
-		}
+		if (!currentPage) return
 
 		setPage(currentPage)
-
 		setScrollContainer(
 			currentPage.closest<HTMLElement>('.react-training-page'),
 		)
@@ -62,7 +55,6 @@ export default function Acronyms() {
 			<main ref={pageRef}>
 				<section className='page'>
 					<h1>{acronymContent.title}</h1>
-
 					<p className='sub'>{acronymContent.subtitle}</p>
 
 					<div className='tip'>
@@ -72,19 +64,17 @@ export default function Acronyms() {
 
 					<Disclosures container={page} />
 
-					{acronymContent.categories.map(category => (
-						<details
-							id={`acronyms-${category.id}`}
-							key={category.id}
-							className='section-card'
-							open>
-							<summary>
-								<b>{category.title}</b>
-
-								<span className='plus' aria-hidden='true' />
-							</summary>
-
-							<div className='section-body'>
+					<div className='training-chapters'>
+						{acronymContent.categories.map((category, index) => (
+							<TrainingChapter
+								key={category.id}
+								prefix='acronyms'
+								index={index}
+								chapter={{
+									id: category.id,
+									title: category.title,
+									icon: 'network',
+								}}>
 								<div className='grid'>
 									{category.items.map(acronym => (
 										<AcronymCard
@@ -93,9 +83,9 @@ export default function Acronyms() {
 										/>
 									))}
 								</div>
-							</div>
-						</details>
-					))}
+							</TrainingChapter>
+						))}
+					</div>
 
 					<div className='note'>
 						<b>{acronymContent.note.label}</b>{' '}

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 
 import {
 	troubleshootingContent,
@@ -8,10 +8,11 @@ import {
 	type TroubleshootingTable,
 } from '../../assets/config/troubleshooting'
 
+import Icon from '../../components/icon/Icon'
+import TrainingChapter from '../../components/trainingChapter/TrainingChapter'
 import Disclosures from '../../components/disclosures/Disclosures'
 import QuickNav from '../../components/quickNav/QuickNav'
 
-import '../../components/quickNav/quickNav.scss'
 import './troubleshooting.scss'
 
 function InlineContent({
@@ -106,7 +107,6 @@ function ContentBlock({ block }: { block: TroubleshootingBlock }) {
 					{block.items.map(tool => (
 						<div className='tool-card' key={tool.title}>
 							<img src={tool.src} alt={tool.alt} />
-
 							<b>{tool.title}</b>
 
 							<span>
@@ -140,11 +140,12 @@ function TroubleshootingCardContent({ card }: { card: TroubleshootingCard }) {
 			<summary>
 				<span>
 					<b>{card.title}</b>
-
 					{card.subtitle && <small>{card.subtitle}</small>}
 				</span>
 
-				<span className='plus' aria-hidden='true' />
+				<span className='disclosure-icon'>
+					<Icon name='toggle' />
+				</span>
 			</summary>
 
 			<div className='ref-body'>
@@ -158,22 +159,17 @@ function TroubleshootingCardContent({ card }: { card: TroubleshootingCard }) {
 
 export default function Troubleshooting() {
 	const pageRef = useRef<HTMLElement>(null)
-
 	const [page, setPage] = useState<HTMLElement | null>(null)
-
 	const [scrollContainer, setScrollContainer] = useState<HTMLElement | null>(
 		null,
 	)
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const currentPage = pageRef.current
 
-		if (!currentPage) {
-			return
-		}
+		if (!currentPage) return
 
 		setPage(currentPage)
-
 		setScrollContainer(
 			currentPage.closest<HTMLElement>('.react-training-page'),
 		)
@@ -200,39 +196,41 @@ export default function Troubleshooting() {
 
 					<Disclosures container={page} />
 
-					{troubleshootingContent.sections.map(section => (
-						<details
-							id={`troubleshooting-${section.id}`}
-							key={section.id}
-							className='section-card'
-							open>
-							<summary>
-								<b>{section.title}</b>
+					<div className='training-chapters'>
+						{troubleshootingContent.sections.map(
+							(section, index) => (
+								<TrainingChapter
+									key={section.id}
+									prefix='troubleshooting'
+									index={index}
+									chapter={{
+										id: section.id,
+										title: section.title,
+										icon: 'check',
+									}}>
+									{section.cards && (
+										<div className='ref-stack'>
+											{section.cards.map(card => (
+												<TroubleshootingCardContent
+													key={card.id}
+													card={card}
+												/>
+											))}
+										</div>
+									)}
 
-								<span className='plus' aria-hidden='true' />
-							</summary>
-
-							<div className='section-body'>
-								{section.cards && (
-									<div className='ref-stack'>
-										{section.cards.map(card => (
-											<TroubleshootingCardContent
-												key={card.id}
-												card={card}
+									{section.blocks?.map(
+										(block, blockIndex) => (
+											<ContentBlock
+												key={`${section.id}-${blockIndex}`}
+												block={block}
 											/>
-										))}
-									</div>
-								)}
-
-								{section.blocks?.map((block, index) => (
-									<ContentBlock
-										key={`${section.id}-${index}`}
-										block={block}
-									/>
-								))}
-							</div>
-						</details>
-					))}
+										),
+									)}
+								</TrainingChapter>
+							),
+						)}
+					</div>
 				</section>
 			</main>
 

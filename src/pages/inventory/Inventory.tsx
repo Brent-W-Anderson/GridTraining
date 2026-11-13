@@ -1,14 +1,14 @@
-import { useEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 
 import {
 	inventoryContent,
 	type InventoryItem,
 } from '../../assets/config/inventory'
 
+import TrainingChapter from '../../components/trainingChapter/TrainingChapter'
 import Disclosures from '../../components/disclosures/Disclosures'
 import QuickNav from '../../components/quickNav/QuickNav'
 
-import '../../components/quickNav/quickNav.scss'
 import './inventory.scss'
 
 function InventoryCard({ item }: { item: InventoryItem }) {
@@ -30,7 +30,6 @@ function InventoryCard({ item }: { item: InventoryItem }) {
 
 			<div className='inventory-copy'>
 				<b>{item.name}</b>
-
 				<span>{item.description}</span>
 			</div>
 		</div>
@@ -39,22 +38,17 @@ function InventoryCard({ item }: { item: InventoryItem }) {
 
 export default function Inventory() {
 	const pageRef = useRef<HTMLElement>(null)
-
 	const [page, setPage] = useState<HTMLElement | null>(null)
-
 	const [scrollContainer, setScrollContainer] = useState<HTMLElement | null>(
 		null,
 	)
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const currentPage = pageRef.current
 
-		if (!currentPage) {
-			return
-		}
+		if (!currentPage) return
 
 		setPage(currentPage)
-
 		setScrollContainer(
 			currentPage.closest<HTMLElement>('.react-training-page'),
 		)
@@ -70,24 +64,21 @@ export default function Inventory() {
 			<main ref={pageRef}>
 				<section className='page'>
 					<h1>{inventoryContent.title}</h1>
-
 					<p className='sub'>{inventoryContent.subtitle}</p>
 
 					<Disclosures container={page} />
 
-					{inventoryContent.sections.map(section => (
-						<details
-							id={`inventory-${section.id}`}
-							key={section.id}
-							className='section-card'
-							open>
-							<summary>
-								<b>{section.title}</b>
-
-								<span className='plus' aria-hidden='true' />
-							</summary>
-
-							<div className='section-body'>
+					<div className='training-chapters'>
+						{inventoryContent.sections.map((section, index) => (
+							<TrainingChapter
+								key={section.id}
+								prefix='inventory'
+								index={index}
+								chapter={{
+									id: section.id,
+									title: section.title,
+									icon: 'box',
+								}}>
 								<div className='inventory-list'>
 									{section.items.map(item => (
 										<InventoryCard
@@ -96,9 +87,9 @@ export default function Inventory() {
 										/>
 									))}
 								</div>
-							</div>
-						</details>
-					))}
+							</TrainingChapter>
+						))}
+					</div>
 				</section>
 			</main>
 

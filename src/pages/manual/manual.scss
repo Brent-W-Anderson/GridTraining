@@ -1,0 +1,33 @@
+/* Chapter 01: service-path overview */
+
+.network-path {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 155px), 1fr));
+	gap: 10px;
+	margin: 20px 0;
+}
+
+.network-path-item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 15px;
+	border: 1px solid #d5e5ee;
+	border-radius: 12px;
+	background: #f4f9fc;
+	color: #123c57;
+}
+
+.network-path-item span {
+	color: #238cc6;
+	font-size: 12px;
+	font-weight: 900;
+}
+
+.network-path-item strong {
+	font-size: 15px;
+}
+
+.manual-existing-heading {
+	margin-top: 38px;
+}

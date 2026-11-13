@@ -1,0 +1,192 @@
+.distribution-calculator {
+	min-width: 0;
+	margin: 18px 0 0;
+	padding: 16px;
+	border: 1px solid var(--line);
+	border-radius: 12px;
+
+	legend {
+		padding: 0 8px;
+		color: var(--navy);
+		font-weight: 800;
+	}
+
+	input,
+	select,
+	button {
+		min-height: 44px;
+		border: 1px solid #718898;
+		border-radius: 7px;
+		font: inherit;
+	}
+
+	input,
+	select {
+		width: 100%;
+		min-width: 0;
+		padding: 8px;
+		background: #fff;
+		color: #17252d;
+	}
+
+	button {
+		padding: 8px 12px;
+		background: #eaf5fc;
+		color: #174967;
+		cursor: pointer;
+
+		&:hover {
+			background: #dceef8;
+		}
+	}
+
+	table {
+		min-width: 660px;
+		margin: 0;
+	}
+
+	th,
+	td {
+		padding: 8px;
+	}
+
+	td:first-child {
+		min-width: 120px;
+	}
+
+	td input {
+		min-width: 82px;
+	}
+}
+
+.distribution-target {
+	display: grid;
+	gap: 6px;
+	max-width: 280px;
+	margin: 16px 0;
+	color: var(--navy);
+	font-weight: 700;
+}
+
+.distribution-table {
+	max-width: 100%;
+	overflow-x: auto;
+	border: 1px solid var(--line);
+	border-radius: 8px;
+}
+
+.distribution-match td {
+	background: #eaf5fc;
+}
+
+.distribution-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: 12px;
+}
+
+.distribution-result {
+	margin-top: 16px;
+	padding: 14px;
+	border: 1px solid #9ebccd;
+	border-radius: 10px;
+	background: #f4fbff;
+	color: #183c55;
+
+	dl {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 12px;
+		margin: 0;
+	}
+
+	dt {
+		font-size: 14px;
+	}
+
+	dd {
+		margin: 4px 0 0;
+		font-size: 22px;
+		font-weight: 800;
+		overflow-wrap: anywhere;
+	}
+
+	p {
+		margin: 0;
+		line-height: 1.6;
+	}
+
+	.distribution-equation {
+		margin-top: 14px;
+		font-weight: 800;
+	}
+}
+
+.distribution-page {
+	.distribution-table {
+		margin: 16px 0;
+	}
+
+	.distribution-table table {
+		min-width: 560px;
+		margin: 0;
+	}
+
+	.distribution-lessons {
+		display: grid;
+		gap: 12px;
+	}
+
+	.distribution-formula {
+		padding: 12px;
+		border: 1px solid var(--line);
+		border-radius: 8px;
+		background: #edf7fc;
+		color: #183c55;
+		line-height: 1.6;
+	}
+
+	.distribution-videos {
+		display: grid;
+		gap: 12px;
+		margin: 16px 0;
+	}
+
+	.distribution-video {
+		display: grid;
+		gap: 8px;
+		padding: 16px;
+		border: 1px solid var(--line);
+		border-radius: 12px;
+		background: #f6fafc;
+
+		h2 {
+			margin: 0;
+			font-size: 19px;
+		}
+
+		p {
+			margin: 0;
+			line-height: 1.6;
+		}
+
+		a {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			min-height: 44px;
+			font-weight: 700;
+		}
+	}
+}
+
+@media (max-width: 600px) {
+	.distribution-calculator {
+		padding: 12px;
+	}
+
+	.distribution-result dl {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}

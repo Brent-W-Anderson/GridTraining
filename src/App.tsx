@@ -1,15 +1,11 @@
-import { StrictMode, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { StrictMode, useLayoutEffect, useRef, useState } from 'react'
 
 import { createRoot } from 'react-dom/client'
-
 import { HashRouter, NavLink, useLocation } from 'react-router-dom'
 
 import { trainingConfig } from './assets/config/training'
-
 import Scrollbar from './components/scrollbar/Scrollbar'
-
 import Pages from './pages/Pages'
-
 import { initializeTabScrollbar } from './tabs/tabs'
 
 import './index.scss'
@@ -22,30 +18,23 @@ function TrainingApp() {
 	const tabsRef = useRef<HTMLElement>(null)
 	const titleRef = useRef<HTMLDivElement>(null)
 
-	useEffect(() => {
-		const cleanup = initializeTabScrollbar()
-
-		return cleanup
+	useLayoutEffect(() => {
+		return initializeTabScrollbar()
 	}, [])
 
 	useLayoutEffect(() => {
 		const tabs = tabsRef.current
 		const title = titleRef.current
 
-		if (!tabs || !title) {
-			return
-		}
+		if (!tabs || !title) return
 
 		const alignTitle = () => {
 			const firstTab = tabs.querySelector<HTMLElement>('.tab')
 
-			if (!firstTab) {
-				return
-			}
+			if (!firstTab) return
 
 			const tabsRect = tabs.getBoundingClientRect()
 			const firstTabRect = firstTab.getBoundingClientRect()
-
 			const left = firstTabRect.left - tabsRect.left + tabs.scrollLeft
 
 			title.style.paddingLeft = `${left}px`
@@ -54,7 +43,6 @@ function TrainingApp() {
 		alignTitle()
 
 		const resizeObserver = new ResizeObserver(alignTitle)
-
 		resizeObserver.observe(tabs)
 
 		window.addEventListener('resize', alignTitle)
@@ -112,12 +100,10 @@ function RoutePage() {
 		null,
 	)
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const page = pageRef.current
 
-		if (!page) {
-			return
-		}
+		if (!page) return
 
 		page.scrollTop = 0
 		setScrollContainer(page)
