@@ -1,34 +1,4 @@
-import aerialServiceLoopsImage from '../images/aerial-service-loops.jpg'
-import bswTrenchImage from '../images/bsw-trench.jpg'
-import cableClipsImage from '../images/cable-clips.jpg'
-import caulkGunImage from '../images/caulk-gun.jpg'
-import drillDriverImage from '../images/drill-driver.jpg'
-import dropCableStripperImage from '../images/drop-cable-stripper.jpg'
-import ethernetCableTesterImage from '../images/ethernet-cable-tester.jpg'
-import ethernetRj45Image from '../images/ethernet-rj45.jpg'
-import extensionLadderImage from '../images/extension-ladder.jpg'
-import fiberCleaverImage from '../images/fiber-cleaver.png'
-import fiberCleaningWipesImage from '../images/fiber-cleaning-wipes.png'
-import fiberInspectionScopeImage from '../images/fiber-inspection-scope.jpg'
-import fiberShardContainerImage from '../images/fiber-shard-container.jpg'
-import fiberStripperImage from '../images/fiber-stripper.jpg'
-import fishTapeImage from '../images/fish-tape.jpg'
-import fusionSplicerImage from '../images/fusion-splicer.webp'
-import kevlarScissorsImage from '../images/kevlar-scissors.png'
-import mstProductImage from '../images/mst-product.jpg'
-import oneClickCleanerImage from '../images/one-click-cleaner.jpg'
-import opticalLightSourceImage from '../images/optical-light-source.jpg'
-import opmFieldImage from '../images/opm-field.jpg'
-import otdrFieldImage from '../images/otdr-field.jpg'
-import q1000kImage from '../images/q1000k.png'
-import rj45CrimperImage from '../images/rj45-crimper.jpg'
-import scApcConnectorImage from '../images/sc-apc-connector.jpg'
-import scApcCouplerImage from '../images/sc-apc-coupler.jpg'
-import scApcPatchCordImage from '../images/sc-apc-patch-cord.jpg'
-import vflImage from '../images/vfl.jpg'
-import w1700kImage from '../images/w1700k.png'
-import w1701kImage from '../images/w1701k.png'
-
+import { releaseImage } from './releaseMedia'
 export type InventoryItem = {
 	name: string
 	description: string
@@ -63,7 +33,7 @@ export const inventoryContent = {
 					description:
 						'Measures received optical power.',
 					image:
-						opmFieldImage,
+						releaseImage('opm-field.jpg'),
 					alt:
 						'Optical power meter',
 				},
@@ -73,7 +43,7 @@ export const inventoryContent = {
 					description:
 						'Red-light tool for tracing fiber and finding visible faults.',
 					image:
-						vflImage,
+						releaseImage('vfl.jpg'),
 					alt:
 						'Visual fault locator',
 				},
@@ -83,7 +53,7 @@ export const inventoryContent = {
 					description:
 						'Locates and characterizes loss events along a fiber.',
 					image:
-						otdrFieldImage,
+						releaseImage('otdr-field.jpg'),
 					alt:
 						'OTDR',
 				},
@@ -93,7 +63,7 @@ export const inventoryContent = {
 					description:
 						'Known light source used with a power meter for loss testing.',
 					image:
-						opticalLightSourceImage,
+						releaseImage('optical-light-source.jpg'),
 					alt:
 						'Optical light source',
 				},
@@ -103,7 +73,7 @@ export const inventoryContent = {
 					description:
 						'Shows dirt or damage on connector end faces.',
 					image:
-						fiberInspectionScopeImage,
+						releaseImage('fiber-inspection-scope.jpg'),
 					alt:
 						'Fiber inspection scope',
 				},
@@ -120,7 +90,7 @@ export const inventoryContent = {
 					description:
 						'Makes a precision cleave on stripped fiber.',
 					image:
-						fiberCleaverImage,
+						releaseImage('fiber-cleaver.png'),
 					alt:
 						'Fiber cleaver',
 				},
@@ -130,7 +100,7 @@ export const inventoryContent = {
 					description:
 						'Removes fiber coating or buffer without damaging the glass.',
 					image:
-						fiberStripperImage,
+						releaseImage('fiber-stripper.jpg'),
 					alt:
 						'Fiber optic stripper',
 				},
@@ -140,7 +110,7 @@ export const inventoryContent = {
 					description:
 						'Opens and prepares FTTH drop cable.',
 					image:
-						dropCableStripperImage,
+						releaseImage('drop-cable-stripper.jpg'),
 					alt:
 						'FTTH drop cable stripper',
 				},
@@ -150,7 +120,7 @@ export const inventoryContent = {
 					description:
 						'Cuts aramid or Kevlar strength yarn in fiber cable.',
 					image:
-						kevlarScissorsImage,
+						releaseImage('kevlar-scissors.png'),
 					alt:
 						'Fiber optic Kevlar scissors',
 				},
@@ -160,7 +130,7 @@ export const inventoryContent = {
 					description:
 						'Cleans SC connector ferrules and compatible adapters.',
 					image:
-						oneClickCleanerImage,
+						releaseImage('one-click-cleaner.jpg'),
 					alt:
 						'2.5 millimeter one-click fiber cleaner',
 				},
@@ -170,7 +140,7 @@ export const inventoryContent = {
 					description:
 						'Cleans prepared fiber and connector surfaces.',
 					image:
-						fiberCleaningWipesImage,
+						releaseImage('fiber-cleaning-wipes.png'),
 					alt:
 						'Lint-free fiber optic cleaning wipes',
 				},
@@ -180,7 +150,7 @@ export const inventoryContent = {
 					description:
 						'Safe disposal for cleaved glass-fiber scraps.',
 					image:
-						fiberShardContainerImage,
+						releaseImage('fiber-shard-container.jpg'),
 					alt:
 						'Fiber optic shard disposal container',
 				},
@@ -190,7 +160,7 @@ export const inventoryContent = {
 					description:
 						'Joins prepared fiber by fusion when the job requires splicing.',
 					image:
-						fusionSplicerImage,
+						releaseImage('fusion-splicer.webp'),
 					alt:
 						'Fusion splicer',
 				},
@@ -207,7 +177,7 @@ export const inventoryContent = {
 					description:
 						'Green SC connector with an angled-polish fiber end face.',
 					image:
-						scApcConnectorImage,
+						releaseImage('sc-apc-connector.jpg'),
 					alt:
 						'SC APC connector',
 				},
@@ -217,7 +187,7 @@ export const inventoryContent = {
 					description:
 						'Short fiber jumper between compatible optical points.',
 					image:
-						scApcPatchCordImage,
+						releaseImage('sc-apc-patch-cord.jpg'),
 					alt:
 						'SC APC fiber patch cord',
 				},
@@ -227,7 +197,7 @@ export const inventoryContent = {
 					description:
 						'Joins two compatible SC/APC connectors.',
 					image:
-						scApcCouplerImage,
+						releaseImage('sc-apc-coupler.jpg'),
 					alt:
 						'SC APC fiber coupler',
 				},
@@ -237,7 +207,7 @@ export const inventoryContent = {
 					description:
 						'Aerial service drop toward the customer.',
 					image:
-						aerialServiceLoopsImage,
+						releaseImage('aerial-service-loops.jpg'),
 					alt:
 						'Aerial fiber drop',
 				},
@@ -247,7 +217,7 @@ export const inventoryContent = {
 					description:
 						'Buried service drop toward the customer.',
 					image:
-						bswTrenchImage,
+						releaseImage('bsw-trench.jpg'),
 					alt:
 						'Buried fiber drop',
 				},
@@ -257,7 +227,7 @@ export const inventoryContent = {
 					description:
 						'Serving terminal where customer drops connect to the distribution network.',
 					image:
-						mstProductImage,
+						releaseImage('mst-product.jpg'),
 					alt:
 						'Multiport service terminal',
 				},
@@ -275,7 +245,7 @@ export const inventoryContent = {
 					description:
 						'Quantum fiber termination, ONT and Ethernet handoff.',
 					image:
-						q1000kImage,
+						releaseImage('q1000k.png'),
 					alt:
 						'Q1000K SmartNID',
 				},
@@ -285,7 +255,7 @@ export const inventoryContent = {
 					description:
 						'Primary Quantum Wi-Fi 7 unit.',
 					image:
-						w1700kImage,
+						releaseImage('w1700k.png'),
 					alt:
 						'W1700K Wi-Fi 7 unit',
 				},
@@ -295,7 +265,7 @@ export const inventoryContent = {
 					description:
 						'Additional Quantum Wi-Fi 7 unit.',
 					image:
-						w1701kImage,
+						releaseImage('w1701k.png'),
 					alt:
 						'W1701K Wi-Fi 7 unit',
 				},
@@ -305,7 +275,7 @@ export const inventoryContent = {
 					description:
 						'Copper network connection between equipment.',
 					image:
-						ethernetRj45Image,
+						releaseImage('ethernet-rj45.jpg'),
 					alt:
 						'Ethernet cable',
 				},
@@ -315,7 +285,7 @@ export const inventoryContent = {
 					description:
 						'Terminates modular Ethernet plugs when field termination is used.',
 					image:
-						rj45CrimperImage,
+						releaseImage('rj45-crimper.jpg'),
 					alt:
 						'RJ45 crimper',
 				},
@@ -325,7 +295,7 @@ export const inventoryContent = {
 					description:
 						'Checks basic continuity and wire map.',
 					image:
-						ethernetCableTesterImage,
+						releaseImage('ethernet-cable-tester.jpg'),
 					alt:
 						'Ethernet cable tester',
 				},
@@ -343,7 +313,7 @@ export const inventoryContent = {
 					description:
 						'Drilling, mounting and fastening.',
 					image:
-						drillDriverImage,
+						releaseImage('drill-driver.jpg'),
 					alt:
 						'Cordless drill driver',
 				},
@@ -353,7 +323,7 @@ export const inventoryContent = {
 					description:
 						'Routes cable through walls, conduit and other spaces.',
 					image:
-						fishTapeImage,
+						releaseImage('fish-tape.jpg'),
 					alt:
 						'Fish tape',
 				},
@@ -363,7 +333,7 @@ export const inventoryContent = {
 					description:
 						'Access for exterior and aerial work.',
 					image:
-						extensionLadderImage,
+						releaseImage('extension-ladder.jpg'),
 					alt:
 						'Fiberglass extension ladder',
 				},
@@ -373,7 +343,7 @@ export const inventoryContent = {
 					description:
 						'Seals approved exterior or wall-entry penetrations.',
 					image:
-						caulkGunImage,
+						releaseImage('caulk-gun.jpg'),
 					alt:
 						'Caulk gun',
 				},
@@ -383,7 +353,7 @@ export const inventoryContent = {
 					description:
 						'Secures cable along an approved route.',
 					image:
-						cableClipsImage,
+						releaseImage('cable-clips.jpg'),
 					alt:
 						'Cable clips and fasteners',
 				},

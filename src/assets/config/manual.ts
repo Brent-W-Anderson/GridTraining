@@ -1,13 +1,4 @@
-import AerialTerminalFieldImage from '../images/aerial-terminal-field.jpg'
-import AerialOspImage from '../images/aerial-osp.jpg'
-import OpmFieldImage from '../images/opm-field.jpg'
-import VflImage from '../images/vfl.jpg'
-import OtdrFieldImage from '../images/otdr-field.jpg'
-import Q1000KImage from '../images/q1000k.png'
-import Q1000KBottomImage from '../images/q1000k-bottom.png'
-import W1700KImage from '../images/w1700k.png'
-import W1701KImage from '../images/w1701k.png'
-
+import { releaseImage } from './releaseMedia'
 export type ManualInline = {
 	strong: boolean
 	text: string
@@ -794,14 +785,14 @@ export const manualContent = {
 					three: false,
 					items: [
 						{
-							src: AerialTerminalFieldImage,
+							src: releaseImage('aerial-terminal-field.jpg'),
 							alt: 'Aerial terminal',
 							title: 'Serving terminal',
 							text:
 								'Verify assignment before connecting.',
 						},
 						{
-							src: AerialOspImage,
+							src: releaseImage('aerial-osp.jpg'),
 							alt: 'Aerial fiber route',
 							title: 'Aerial route',
 							text:
@@ -980,7 +971,7 @@ export const manualContent = {
 					three: true,
 					items: [
 						{
-							src: OpmFieldImage,
+							src: releaseImage('opm-field.jpg'),
 							alt: 'Optical power meter',
 							title:
 								'Optical Power Meter (OPM)',
@@ -988,7 +979,7 @@ export const manualContent = {
 								'Measures optical power at the test point.',
 						},
 						{
-							src: VflImage,
+							src: releaseImage('vfl.jpg'),
 							alt: 'Visual fault locator',
 							title:
 								'Visual Fault Locator (VFL)',
@@ -996,7 +987,7 @@ export const manualContent = {
 								'Visible red-light tracing / nearby fault aid.',
 						},
 						{
-							src: OtdrFieldImage,
+							src: releaseImage('otdr-field.jpg'),
 							alt:
 								'Optical time-domain reflectometer',
 							title:
@@ -1098,14 +1089,14 @@ export const manualContent = {
 					three: false,
 					items: [
 						{
-							src: Q1000KImage,
+							src: releaseImage('q1000k.png'),
 							alt: 'Q1000K SmartNID',
 							title: 'Q1000K',
 							text:
 								'Quantum Fiber SmartNID incorporating the customer optical termination function.',
 						},
 						{
-							src: Q1000KBottomImage,
+							src: releaseImage('q1000k-bottom.png'),
 							alt: 'Q1000K ports',
 							title: 'Q1000K ports',
 							text:
@@ -1191,14 +1182,14 @@ export const manualContent = {
 					three: false,
 					items: [
 						{
-							src: W1700KImage,
+							src: releaseImage('w1700k.png'),
 							alt: 'W1700K',
 							title: 'W1700K',
 							text:
 								'Primary wired Wi-Fi 7 pod.',
 						},
 						{
-							src: W1701KImage,
+							src: releaseImage('w1701k.png'),
 							alt: 'W1701K',
 							title: 'W1701K',
 							text:

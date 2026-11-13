@@ -1,12 +1,4 @@
-import opmFieldImage from '../images/opm-field.jpg'
-import otdrFieldImage from '../images/otdr-field.jpg'
-import q1000kBottomImage from '../images/q1000k-bottom.png'
-import q1000kImage from '../images/q1000k.png'
-import vflImage from '../images/vfl.jpg'
-import w1700kBottomImage from '../images/w1700k-bottom.png'
-import w1700kImage from '../images/w1700k.png'
-import w1701kImage from '../images/w1701k.png'
-
+import { releaseImage } from './releaseMedia'
 export type TroubleshootingInline = {
 	text: string
 	strong?: boolean
@@ -242,13 +234,13 @@ export const troubleshootingContent = {
 							items: [
 								{
 									src:
-										q1000kImage,
+										releaseImage('q1000k.png'),
 									alt:
 										'Q1000K SmartNID',
 								},
 								{
 									src:
-										q1000kBottomImage,
+										releaseImage('q1000k-bottom.png'),
 									alt:
 										'Q1000K ports',
 								},
@@ -341,12 +333,12 @@ export const troubleshootingContent = {
 							items: [
 								{
 									src:
-										w1700kImage,
+										releaseImage('w1700k.png'),
 									alt: 'W1700K',
 								},
 								{
 									src:
-										w1701kImage,
+										releaseImage('w1701k.png'),
 									alt: 'W1701K',
 								},
 							],
@@ -425,13 +417,13 @@ export const troubleshootingContent = {
 							items: [
 								{
 									src:
-										q1000kBottomImage,
+										releaseImage('q1000k-bottom.png'),
 									alt:
 										'Q1000K ports',
 								},
 								{
 									src:
-										w1700kBottomImage,
+										releaseImage('w1700k-bottom.png'),
 									alt:
 										'W1700K ports',
 								},
@@ -639,7 +631,7 @@ export const troubleshootingContent = {
 							items: [
 								{
 									src:
-										opmFieldImage,
+										releaseImage('opm-field.jpg'),
 									alt:
 										'Optical power meter',
 								},
@@ -737,7 +729,7 @@ export const troubleshootingContent = {
 							items: [
 								{
 									src:
-										opmFieldImage,
+										releaseImage('opm-field.jpg'),
 									alt:
 										'Optical power meter',
 									title: 'OPM',
@@ -755,7 +747,7 @@ export const troubleshootingContent = {
 								},
 								{
 									src:
-										vflImage,
+										releaseImage('vfl.jpg'),
 									alt:
 										'Visual fault locator',
 									title: 'VFL',
@@ -768,7 +760,7 @@ export const troubleshootingContent = {
 								},
 								{
 									src:
-										otdrFieldImage,
+										releaseImage('otdr-field.jpg'),
 									alt: 'OTDR',
 									title: 'OTDR',
 									content: [

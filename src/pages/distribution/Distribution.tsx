@@ -10,7 +10,6 @@ import TrainingChapter from '../../components/trainingChapter/TrainingChapter'
 
 export default function Distribution() {
 	const pageRef = useRef<HTMLElement>(null)
-
 	const [page, setPage] = useState<HTMLElement | null>(null)
 	const [scrollContainer, setScrollContainer] = useState<HTMLElement | null>(
 		null,
@@ -44,62 +43,19 @@ export default function Distribution() {
 							chapter={content.chapters[0]}
 							index={0}
 							prefix='distribution'>
-							<div
-								className='distribution-table'
-								role='region'
-								aria-label={content.chapters[0].title}
-								tabIndex={0}>
-								<table>
-									<thead>
-										<tr>
-											{content.identifiers.headers.map(
-												header => (
-													<th
-														key={header}
-														scope='col'>
-														{header}
-													</th>
-												),
-											)}
-										</tr>
-									</thead>
-
-									<tbody>
-										{content.identifiers.rows.map(
-											([label, detail]) => (
-												<tr key={label}>
-													<th scope='row'>{label}</th>
-													<td>{detail}</td>
-												</tr>
-											),
-										)}
-									</tbody>
-								</table>
-							</div>
+							<TrainingVideos
+								videos={content.videos.items}
+								playLabel={content.videos.play}
+								openLabel={content.videos.open}
+							/>
 						</TrainingChapter>
 
 						<TrainingChapter
 							chapter={content.chapters[1]}
 							index={1}
 							prefix='distribution'>
-							<p>{content.math.intro}</p>
-
-							<ol className='distribution-lessons'>
-								{content.math.steps.map(step => (
-									<li key={step}>{step}</li>
-								))}
-							</ol>
-
-							<p className='distribution-formula'>
-								{content.math.formula}
-							</p>
-
-							<p>{content.math.example}</p>
-
-							<p className='note'>{content.math.assignment}</p>
-
-							<p className='note'>{content.math.limit}</p>
-
+							<p>{content.calculatorIntro}</p>
+							<p className='note'>{content.calculatorExample}</p>
 							<DistributionCalculator />
 						</TrainingChapter>
 
@@ -107,38 +63,40 @@ export default function Distribution() {
 							chapter={content.chapters[2]}
 							index={2}
 							prefix='distribution'>
-							<p>{content.videos.intro}</p>
-
-							<TrainingVideos
-								videos={content.videos.items}
-								playLabel={content.videos.play}
-								openLabel={content.videos.open}
-							/>
-
-							<a
-								href={content.videos.sourceHref}
-								target='_blank'
-								rel='noopener noreferrer'>
-								{content.videos.source}
-							</a>
-						</TrainingChapter>
-
-						<TrainingChapter
-							chapter={content.chapters[3]}
-							index={3}
-							prefix='distribution'>
 							<ol className='distribution-lessons'>
 								{content.verification.map(step => (
 									<li key={step}>{step}</li>
 								))}
 							</ol>
 
-							<a
-								href={content.reference.href}
-								target='_blank'
-								rel='noopener noreferrer'>
-								{content.reference.label}
-							</a>
+							{content.photos.map(photo => (
+								<figure
+									key={photo.title}
+									className='section-card'
+									style={{
+										padding: '1rem',
+										margin: '1rem 0',
+									}}>
+									<div
+										role='img'
+										aria-label={photo.title}
+										style={{
+											border: '2px dashed currentColor',
+											borderRadius: '0.5rem',
+											minHeight: '8rem',
+											display: 'grid',
+											placeItems: 'center',
+											padding: '1rem',
+											textAlign: 'center',
+										}}>
+										<strong>{photo.title}</strong>
+									</div>
+
+									<figcaption className='note'>
+										{photo.caption}
+									</figcaption>
+								</figure>
+							))}
 						</TrainingChapter>
 					</div>
 				</section>

@@ -1,69 +1,139 @@
-FIBER INSTALLATION & REPAIR TECHNICIAN TRAINING - FIELD GUIDE
 
-SETUP:
-Run: yarn install
+GRIDTRAINING
+============
 
-This runs scripts/download-images.ps1 automatically and makes sure all training images are available.
-After setup, run: yarn run
+Fiber Technician Training Application
 
-This opens src\index.html in your default browser.
+GridTraining is a React, TypeScript, Vite, and SCSS application
+for fiber technician training.
 
-TABS:
-1. Role & Network
-2. Learning Manual
-3. Field Cheat Sheet
-4. Troubleshooting
+PACKAGE MANAGER
+---------------
 
-CURRENT BUILD INCLUDES:
-- Accordion/dropdown organization across the training pages
-- Clickable completion checkboxes
-- Acronym/full-name glossary shown before page content
-- Start-to-finish job workflow in the Learning Manual
-- Connecteam time-clock / jobs / GPS behavior grounded in Connecteam public documentation
-- QMate workflow framework with unverified company-specific buttons/statuses clearly marked instead of invented
-- Google Maps latitude/longitude instructions for Android, iPhone/iPad and computer
-- Field-sketch checklist and buried-route/dig-request documentation workflow
-- OLT / ODN / ONT / OSP / MST fundamentals
-- Real OSP, MST/terminal, handhole, pedestal and closure photos
-- ASW vs BSW workflow
-- Q1000K SmartNID and W1700K/W1701K training
-- Fiber connector cleanliness and laser-safety reminders
-- OPM / VFL / OTDR tool selection
-- Layer-by-layer troubleshooting and equipment light states
-- Install / repair verification, customer handoff and closeout guidance
-- 16 of 16 training images included in this snapshot
+Yarn
 
-IMPORTANT:
-Current GridSource / Quantum SOP always wins for optical thresholds, burial depth,
-clearances, attachment hardware, provisioning, QMate status codes, sketch symbols,
-safety, required photos and closeout rules.
 
-RESEARCH LIMITATION:
-No authoritative public GridSource/Quantum QMate technician manual was found during the
-2026-10-30 research pass. QMate-specific tap-by-tap instructions must be filled from
-GridSource training, screenshots or verified live workflow rather than guessed.
+GETTING STARTED
+---------------
 
-PROJECT STRUCTURE:
-src/index.html
-src/index.scss
-src/pages/pages.js
-src/pages/role/index.html
-src/pages/manual/index.html
-src/pages/cheat/index.html
-src/pages/troubleshooting/index.html
-src/assets/images/
-src/assets/references/sources.txt
-scripts/download-images.ps1
-scripts/run.ps1
-package.json
-yarn.lock
-.yarnrc.yml
+Open PowerShell in the GridTraining project directory.
 
-ORGANIZATION
-------------
-src/ contains the application itself.
-src/pages/ contains page content and shared page behavior.
-src/index.scss is the current shared page stylesheet beside src/index.html; it can be split by ownership in later cleanup steps.
-src/assets/references/ contains the research/source ledger supporting the training content.
-scripts/ contains project utilities such as the training-image downloader and browser launcher.
-Yarn is configured to use the normal node_modules linker instead of Plug'n'Play.
+Install dependencies:
+
+yarn install
+
+Start the development server:
+
+yarn dev
+
+Open the local URL displayed in the terminal.
+
+
+BUILD
+-----
+
+Create a production build:
+
+yarn build
+
+Preview the production build locally:
+
+yarn preview
+
+The production build is generated in the dist/ directory.
+
+
+PROJECT STRUCTURE
+-----------------
+
+src/
+    assets/
+        config/          Training content and configuration
+        styles/          Shared application styles
+
+    components/          Reusable UI components
+
+    pages/               Training pages and chapters
+
+    App.tsx              Main application
+
+index.html               Application entry point
+
+package.json             Project dependencies and commands
+
+vite.config.ts           Vite configuration
+
+
+MEDIA STORAGE
+-------------
+
+Training images and videos are hosted externally through
+the GridTraining GitHub Release:
+
+https://github.com/Brent-W-Anderson/GridTraining/releases/tag/media-v1
+
+Images and videos should be uploaded as individual release
+assets, preserving their filenames and extensions.
+
+Image URLs are managed through:
+
+src/assets/config/releaseMedia.ts
+
+The FDH training video is referenced through:
+
+src/assets/config/distribution.ts
+
+Media files do not need to be stored in the application
+source code.
+
+When adding new media:
+
+1. Upload the file to the media-v1 GitHub Release.
+2. Copy or construct its release asset URL.
+3. Reference that URL in the appropriate training configuration.
+4. Verify that the media loads correctly in the application.
+
+GitHub Releases are used for external media storage.
+Browser playback and image loading should be verified
+after deployment.
+
+
+DEPLOYMENT
+----------
+
+GridTraining is deployed using GitHub Pages.
+
+Live website:
+
+https://brent-w-anderson.github.io/GridTraining/
+
+GitHub repository:
+
+https://github.com/Brent-W-Anderson/GridTraining
+
+The Vite base path is:
+
+/GridTraining/
+
+Build and deployment configuration should preserve this
+base path.
+
+
+DEVELOPMENT GUIDELINES
+----------------------
+
+Keep substantial training content in typed configuration files.
+
+Use React components for rendering and application behavior.
+
+Keep component-specific styles alongside their components.
+
+Preserve existing working functionality when updating lessons.
+
+Organize training material in the order technicians encounter
+equipment and perform field procedures.
+
+Use Yarn for dependency management.
+
+Do not add unnecessary media downloads or generated files
+to the source repository.

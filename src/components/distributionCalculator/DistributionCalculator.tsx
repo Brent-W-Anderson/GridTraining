@@ -11,62 +11,116 @@ import {
 
 import './distributionCalculator.scss'
 
+type SerialLeg = LegInput & {
+	serialNumber: string
+}
+
+function generateSerialNumber(): string {
+	const characters = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+
+	return Array.from(
+		{ length: 12 },
+		() => characters[Math.floor(Math.random() * characters.length)],
+	).join('')
+}
+
 export default function DistributionCalculator() {
 	const id = useId()
-	const nextId = useRef(5)
 
-	const [port, setPort] = useState('145')
-	const [assignedLeg, setAssignedLeg] = useState('')
+	const nextId = useRef(Math.max(...content.practice.map(leg => leg.id)) + 1)
 
-	const [legs, setLegs] = useState<LegInput[]>(() =>
-		content.practice.map(leg => ({ ...leg })),
+	const [port, setPort] = useState('110')
+	const [startingLeg, setStartingLeg] = useState('')
+
+	const [legs, setLegs] = useState<SerialLeg[]>(() =>
+		content.practice.map(leg => ({
+			...leg,
+			serialNumber: generateSerialNumber(),
+		})),
 	)
 
-	const map = buildRanges(legs)
-	const target = wholeNumber(port)
+	const numberedLegs = legs.map((leg, index) => ({
+		...leg,
+		label: String(index + 1),
+	}))
+
+	const map = buildRanges(numberedLegs)
+	const assignedNumber = wholeNumber(port)
+
+	const startingIndex = startingLeg
+		? numberedLegs.findIndex(leg => String(leg.id) === startingLeg)
+		: 0
+
+	const startingLegValid = startingIndex >= 0
+
+	const offset = startingLegValid
+		? numberedLegs
+				.slice(0, startingIndex)
+				.reduce((total, leg) => total + leg.size, 0)
+		: 0
+
+	const target =
+		assignedNumber !== null &&
+		startingLegValid &&
+		Number.isSafeInteger(assignedNumber + offset)
+			? assignedNumber + offset
+			: null
 
 	const match =
 		map.error === null && target !== null
 			? locatePort(target, map.ranges)
 			: null
 
-	const assigned = assignedLeg.trim().toLowerCase()
-
-	const assignedRange = map.ranges.find(
-		leg => leg.label.toLowerCase() === assigned,
-	)
+	const matchedLeg = match
+		? numberedLegs.find(leg => leg.id === match.leg.id)
+		: undefined
 
 	const error = map.error
 		? content.errors[map.error]
-		: target === null
+		: assignedNumber === null
 			? content.errors.port
-			: assigned && !assignedRange
-				? content.errors.legMissing
-				: !match
-					? content.errors.missing
-					: assignedRange && assignedRange.id !== match.leg.id
-						? content.errors.legConflict
+			: !startingLegValid
+				? content.errors.startingLeg
+				: target === null
+					? content.errors.port
+					: !match
+						? content.errors.missing
 						: null
 
-	function update(rowId: number, patch: Partial<LegInput>) {
+	function updateSize(rowId: number, size: 32 | 64) {
 		setLegs(current =>
-			current.map(leg => (leg.id === rowId ? { ...leg, ...patch } : leg)),
+			current.map(leg => (leg.id === rowId ? { ...leg, size } : leg)),
 		)
 	}
 
-	function add(size: 32 | 64) {
+	function updateSerialNumber(rowId: number, serialNumber: string) {
+		setLegs(current =>
+			current.map(leg =>
+				leg.id === rowId ? { ...leg, serialNumber } : leg,
+			),
+		)
+	}
+
+	function addLeg() {
 		const rowId = nextId.current++
 
 		setLegs(current => [
 			...current,
 			{
 				id: rowId,
-				label: '',
-				firstPort: '',
-				size,
-				firstStrand: '1',
+				label: String(current.length + 1),
+				size: 32,
+				serialNumber: generateSerialNumber(),
 			},
 		])
+	}
+
+	function removeLeg(rowId: number) {
+		setLegs(current => current.filter(leg => leg.id !== rowId))
+
+		if (startingLeg === String(rowId)) {
+			setStartingLeg('')
+		}
 	}
 
 	return (
@@ -92,18 +146,24 @@ export default function DistributionCalculator() {
 				/>
 			</label>
 
-			<label className='distribution-target' htmlFor={`${id}-leg`}>
-				{content.assignedLeg}
+			<label
+				className='distribution-target'
+				htmlFor={`${id}-starting-leg`}>
+				{content.startingLeg}
 
-				<input
-					id={`${id}-leg`}
-					value={assignedLeg}
-					aria-describedby={`${id}-leg-help`}
-					onChange={event => setAssignedLeg(event.target.value)}
-				/>
+				<select
+					id={`${id}-starting-leg`}
+					value={startingLeg}
+					onChange={event => setStartingLeg(event.target.value)}>
+					<option value=''>Leg 1 (default)</option>
+
+					{numberedLegs.slice(1).map(leg => (
+						<option key={leg.id} value={leg.id}>
+							Leg {leg.label}
+						</option>
+					))}
+				</select>
 			</label>
-
-			<p id={`${id}-leg-help`}>{content.assignedHelp}</p>
 
 			<div
 				className='distribution-table'
@@ -122,14 +182,10 @@ export default function DistributionCalculator() {
 					</thead>
 
 					<tbody>
-						{legs.map((leg, index) => {
-							const first = wholeNumber(leg.firstPort)
-
-							const last =
-								first === null ||
-								!Number.isSafeInteger(first + leg.size - 1)
-									? '—'
-									: first + leg.size - 1
+						{numberedLegs.map((leg, index) => {
+							const range = map.ranges.find(
+								item => item.id === leg.id,
+							)
 
 							const matched = !error && match?.leg.id === leg.id
 
@@ -141,81 +197,50 @@ export default function DistributionCalculator() {
 											? 'distribution-match'
 											: undefined
 									}>
-									<td>
-										<input
-											aria-label={`${content.columns[0]} ${index + 1}`}
-											value={leg.label}
-											onChange={event =>
-												update(leg.id, {
-													label: event.target.value,
-												})
-											}
-										/>
-									</td>
+									<td>{index + 1}</td>
 
 									<td>
 										<input
-											aria-label={`${content.columns[1]} ${index + 1}`}
-											inputMode='numeric'
-											pattern='[0-9]*'
-											value={leg.firstPort}
+											aria-label={`Simulated S/N for leg ${index + 1}`}
+											value={leg.serialNumber}
+											maxLength={12}
 											onChange={event =>
-												update(leg.id, {
-													firstPort:
-														event.target.value,
-												})
+												updateSerialNumber(
+													leg.id,
+													event.target.value.toUpperCase(),
+												)
 											}
 										/>
 									</td>
 
 									<td>
 										<select
-											aria-label={`${content.columns[2]} ${index + 1}`}
+											aria-label={`Positions for leg ${index + 1}`}
 											value={leg.size}
 											onChange={event =>
-												update(leg.id, {
-													size:
-														event.target.value ===
-														'32'
-															? 32
-															: 64,
-												})
+												updateSize(
+													leg.id,
+													event.target.value === '64'
+														? 64
+														: 32,
+												)
 											}>
 											<option value={32}>32</option>
 											<option value={64}>64</option>
 										</select>
 									</td>
 
-									<td>
-										<input
-											aria-label={`${content.columns[3]} ${index + 1}`}
-											inputMode='numeric'
-											pattern='[0-9]*'
-											value={leg.firstStrand}
-											onChange={event =>
-												update(leg.id, {
-													firstStrand:
-														event.target.value,
-												})
-											}
-										/>
-									</td>
+									<td>{range?.firstPort ?? '—'}</td>
 
-									<td>{last}</td>
+									<td>{range?.lastPort ?? '—'}</td>
 
 									<td>
 										<button
 											type='button'
-											aria-label={`${content.remove} ${leg.label || index + 1}`}
-											onClick={() =>
-												setLegs(current =>
-													current.filter(
-														row =>
-															row.id !== leg.id,
-													),
-												)
-											}>
-											{content.columns[5]}
+											disabled={numberedLegs.length === 1}
+											aria-label={`Remove leg ${index + 1}`}
+											onClick={() => removeLeg(leg.id)}>
+											{content.remove}
 										</button>
 									</td>
 								</tr>
@@ -226,34 +251,8 @@ export default function DistributionCalculator() {
 			</div>
 
 			<div className='distribution-actions'>
-				<button type='button' onClick={() => add(32)}>
-					{content.add32}
-				</button>
-
-				<button type='button' onClick={() => add(64)}>
-					{content.add64}
-				</button>
-
-				<button
-					type='button'
-					onClick={() => {
-						setLegs(
-							content.assignmentPractice.map(leg => ({ ...leg })),
-						)
-						setPort('145')
-						setAssignedLeg('2')
-					}}>
-					{content.loadAssignment}
-				</button>
-
-				<button
-					type='button'
-					onClick={() => {
-						setLegs(content.practice.map(leg => ({ ...leg })))
-						setAssignedLeg('')
-						setPort('145')
-					}}>
-					{content.reset}
+				<button type='button' onClick={addLeg}>
+					{content.addLeg}
 				</button>
 			</div>
 
@@ -265,36 +264,69 @@ export default function DistributionCalculator() {
 				{error ? (
 					<p>{error}</p>
 				) : (
-					match && (
+					match &&
+					matchedLeg &&
+					target !== null &&
+					assignedNumber !== null && (
 						<>
-							<dl>
-								<div>
-									<dt>{content.result.leg}</dt>
-									<dd>{match.leg.label}</dd>
-								</div>
+							<h3>How We Found Your Strand</h3>
 
-								<div>
-									<dt>{content.result.strand}</dt>
-									<dd>{match.strand}</dd>
-								</div>
+							{offset > 0 && (
+								<>
+									<p>
+										Starting at Leg {startingIndex + 1}{' '}
+										skips {offset} positions from the
+										preceding legs.
+									</p>
 
-								<div>
-									<dt>{content.result.position}</dt>
-									<dd>{match.position}</dd>
-								</div>
+									<p>
+										{assignedNumber} + {offset} ={' '}
+										<strong>{target}</strong>
+									</p>
+								</>
+							)}
 
-								<div>
-									<dt>{content.result.range}</dt>
-									<dd>
-										{match.leg.firstPort}–
-										{match.leg.lastPort}
-									</dd>
-								</div>
-							</dl>
+							<ol>
+								{map.ranges
+									.filter(range => range.firstPort <= target)
+									.map(range => (
+										<li key={range.id}>
+											Leg {range.label}: {range.firstPort}
+											–{range.lastPort}
+											{range.id === match.leg.id && (
+												<strong> — Match</strong>
+											)}
+										</li>
+									))}
+							</ol>
+
+							<p>
+								<strong>
+									{target} − {match.leg.firstPort} + 1 ={' '}
+									{match.position}
+								</strong>
+							</p>
+
+							<p>
+								Leg {match.leg.label}, Position {match.position}
+							</p>
+
+							<hr />
+
+							<h3>Find This Distribution Label</h3>
 
 							<p className='distribution-equation'>
-								{target} − {match.leg.firstPort} +{' '}
-								{match.leg.firstStrand} = {match.strand}
+								<strong>
+									{matchedLeg.serialNumber || 'S/N NOT SET'}{' '}
+									{match.position}
+								</strong>
+							</p>
+
+							<p className='note'>
+								Simulated S/N for training. Match the actual
+								serial number and strand position against the
+								physical FDH labels and approved service
+								records.
 							</p>
 						</>
 					)

@@ -1,13 +1,4 @@
-import aerialTerminalFieldImage from '../images/aerial-terminal-field.jpg'
-import mstProductImage from '../images/mst-product.jpg'
-import opmFieldImage from '../images/opm-field.jpg'
-import otdrFieldImage from '../images/otdr-field.jpg'
-import q1000kBottomImage from '../images/q1000k-bottom.png'
-import q1000kImage from '../images/q1000k.png'
-import vflImage from '../images/vfl.jpg'
-import w1700kImage from '../images/w1700k.png'
-import w1701kImage from '../images/w1701k.png'
-
+import { releaseImage } from './releaseMedia'
 export type CheatInline = {
 	text: string
 	strong?: boolean
@@ -118,7 +109,7 @@ export const cheatContent = {
 					items: [
 						{
 							src:
-								mstProductImage,
+								releaseImage('mst-product.jpg'),
 							alt:
 								'Multiport Service Terminal',
 							title:
@@ -128,7 +119,7 @@ export const cheatContent = {
 						},
 						{
 							src:
-								aerialTerminalFieldImage,
+								releaseImage('aerial-terminal-field.jpg'),
 							alt:
 								'Aerial fiber terminal',
 							title:
@@ -287,7 +278,7 @@ export const cheatContent = {
 					items: [
 						{
 							src:
-								opmFieldImage,
+								releaseImage('opm-field.jpg'),
 							alt:
 								'Optical power meter',
 							title:
@@ -297,7 +288,7 @@ export const cheatContent = {
 						},
 						{
 							src:
-								vflImage,
+								releaseImage('vfl.jpg'),
 							alt:
 								'Visual fault locator',
 							title:
@@ -307,7 +298,7 @@ export const cheatContent = {
 						},
 						{
 							src:
-								otdrFieldImage,
+								releaseImage('otdr-field.jpg'),
 							alt: 'OTDR',
 							title:
 								'OTDR · Optical Time-Domain Reflectometer',
@@ -351,7 +342,7 @@ export const cheatContent = {
 					items: [
 						{
 							src:
-								q1000kImage,
+								releaseImage('q1000k.png'),
 							alt:
 								'Q1000K SmartNID',
 							title:
@@ -361,7 +352,7 @@ export const cheatContent = {
 						},
 						{
 							src:
-								q1000kBottomImage,
+								releaseImage('q1000k-bottom.png'),
 							alt:
 								'Q1000K bottom ports',
 							title:
@@ -447,7 +438,7 @@ export const cheatContent = {
 					items: [
 						{
 							src:
-								w1700kImage,
+								releaseImage('w1700k.png'),
 							alt: 'W1700K',
 							title: 'W1700K',
 							text:
@@ -455,7 +446,7 @@ export const cheatContent = {
 						},
 						{
 							src:
-								w1701kImage,
+								releaseImage('w1701k.png'),
 							alt: 'W1701K',
 							title: 'W1701K',
 							text:

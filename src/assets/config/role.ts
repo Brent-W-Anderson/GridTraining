@@ -1,9 +1,4 @@
-
-import aerialOspImage from '../images/aerial-osp.jpg'
-import aerialTerminalFieldImage from '../images/aerial-terminal-field.jpg'
-import mstProductImage from '../images/mst-product.jpg'
-import ospHandholeImage from '../images/osp-handhole.jpg'
-
+import { releaseImage } from './releaseMedia'
 export type RoleText = {
 	type: 'text'
 	text: string
@@ -160,28 +155,28 @@ export const roleContent = {
 					type: 'image-grid',
 					items: [
 						{
-							src: aerialOspImage,
+							src: releaseImage('aerial-osp.jpg'),
 							alt: 'Aerial fiber outside plant',
 							title: 'Aerial Fiber',
 							text:
 								'Fiber cables and equipment installed along utility poles.',
 						},
 						{
-							src: ospHandholeImage,
+							src: releaseImage('osp-handhole.jpg'),
 							alt: 'Underground fiber handhole',
 							title: 'Underground Fiber',
 							text:
 								'Handholes provide access to underground cables and enclosures.',
 						},
 						{
-							src: mstProductImage,
+							src: releaseImage('mst-product.jpg'),
 							alt: 'Multiport service terminal',
 							title: 'MST',
 							text:
 								'Recognize the hardened ports used for customer drop connections.',
 						},
 						{
-							src: aerialTerminalFieldImage,
+							src: releaseImage('aerial-terminal-field.jpg'),
 							alt: 'Aerial fiber terminal in service',
 							title: 'Field Terminal',
 							text:

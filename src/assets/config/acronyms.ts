@@ -1,27 +1,4 @@
-import aerialOspImage from '../images/aerial-osp.jpg'
-import aerialServiceLoopsImage from '../images/aerial-service-loops.jpg'
-import aerialSpliceClosureImage from '../images/aerial-splice-closure.jpg'
-import aerialTerminalFieldImage from '../images/aerial-terminal-field.jpg'
-import apcConnectorsImage from '../images/apc-connectors.jpg'
-import bswTrenchImage from '../images/bsw-trench.jpg'
-import dbLossImage from '../images/db-loss.jpg'
-import dbmPowerImage from '../images/dbm-power.jpg'
-import ethernetRj45Image from '../images/ethernet-rj45.jpg'
-import gponOltImage from '../images/gpon-olt.jpg'
-import gpsFieldImage from '../images/gps-field.webp'
-import mstProductImage from '../images/mst-product.jpg'
-import oltRackImage from '../images/olt-rack.jpg'
-import opmFieldImage from '../images/opm-field.jpg'
-import otdrFieldImage from '../images/otdr-field.jpg'
-import pedestalFtthImage from '../images/pedestal-ftth.jpg'
-import ponSplitterImage from '../images/pon-splitter.png'
-import q1000kBottomImage from '../images/q1000k-bottom.png'
-import q1000kImage from '../images/q1000k.png'
-import scApcConnectorImage from '../images/sc-apc-connector.jpg'
-import vflImage from '../images/vfl.jpg'
-import w1700kBottomImage from '../images/w1700k-bottom.png'
-import w1700kImage from '../images/w1700k.png'
-
+import { releaseImage } from './releaseMedia'
 export type Acronym = {
 	key: string
 	full: string
@@ -42,7 +19,7 @@ const acronyms: Acronym[] = [
 		key: 'OSP',
 		full: 'Outside Plant',
 		category: 'Network architecture and fiber plant',
-		image: aerialOspImage,
+		image: releaseImage('aerial-osp.jpg'),
 		meaning:
 			'The fiber, terminals, closures, handholes, pedestals, poles, conduit, and related network infrastructure outside the customer premises.',
 		field:
@@ -52,7 +29,7 @@ const acronyms: Acronym[] = [
 		key: 'FTTH',
 		full: 'Fiber to the Home',
 		category: 'Network architecture and fiber plant',
-		image: pedestalFtthImage,
+		image: releaseImage('pedestal-ftth.jpg'),
 		meaning:
 			'A network design that carries optical fiber all the way to a residence instead of stopping at an older copper or coax handoff.',
 		field:
@@ -62,7 +39,7 @@ const acronyms: Acronym[] = [
 		key: 'ODN',
 		full: 'Optical Distribution Network',
 		category: 'Network architecture and fiber plant',
-		image: aerialSpliceClosureImage,
+		image: releaseImage('aerial-splice-closure.jpg'),
 		meaning:
 			'The passive optical path between provider-side optical equipment and customer-side optical termination.',
 		field:
@@ -72,7 +49,7 @@ const acronyms: Acronym[] = [
 		key: 'PON',
 		full: 'Passive Optical Network',
 		category: 'Passive optical technologies',
-		image: ponSplitterImage,
+		image: releaseImage('pon-splitter.png'),
 		meaning:
 			'A fiber architecture that uses passive optical components through the distribution path rather than powered electronics at every intermediate point.',
 		field:
@@ -82,7 +59,7 @@ const acronyms: Acronym[] = [
 		key: 'OLT',
 		full: 'Optical Line Terminal',
 		category: 'Network architecture and fiber plant',
-		image: oltRackImage,
+		image: releaseImage('olt-rack.jpg'),
 		meaning:
 			'Provider-side equipment that originates and manages the passive optical network connection.',
 		field:
@@ -92,7 +69,7 @@ const acronyms: Acronym[] = [
 		key: 'ONT',
 		full: 'Optical Network Terminal',
 		category: 'Network architecture and fiber plant',
-		image: q1000kImage,
+		image: releaseImage('q1000k.png'),
 		meaning:
 			'Customer-side equipment that terminates the optical connection and provides an electrical network handoff.',
 		field:
@@ -102,7 +79,7 @@ const acronyms: Acronym[] = [
 		key: 'MST',
 		full: 'Multiport Service Terminal',
 		category: 'Network architecture and fiber plant',
-		image: mstProductImage,
+		image: releaseImage('mst-product.jpg'),
 		meaning:
 			'A field terminal with multiple service ports used to connect individual customer drops into the distribution network.',
 		field:
@@ -112,7 +89,7 @@ const acronyms: Acronym[] = [
 		key: 'ASW',
 		full: 'Aerial Service Wire',
 		category: 'Customer drop',
-		image: aerialServiceLoopsImage,
+		image: releaseImage('aerial-service-loops.jpg'),
 		meaning:
 			'The customer service drop routed aerially from serving infrastructure toward the premises.',
 		field:
@@ -122,7 +99,7 @@ const acronyms: Acronym[] = [
 		key: 'BSW',
 		full: 'Buried Service Wire',
 		category: 'Customer drop',
-		image: bswTrenchImage,
+		image: releaseImage('bsw-trench.jpg'),
 		meaning:
 			'The customer service drop intended for a buried route between serving infrastructure and the premises.',
 		field:
@@ -132,7 +109,7 @@ const acronyms: Acronym[] = [
 		key: 'FSA',
 		full: 'Fiber Serving Area',
 		category: 'Network architecture and fiber plant',
-		image: pedestalFtthImage,
+		image: releaseImage('pedestal-ftth.jpg'),
 		meaning:
 			'A defined geographic or network serving area associated with a group of fiber customers and distribution facilities.',
 		field:
@@ -142,7 +119,7 @@ const acronyms: Acronym[] = [
 		key: 'FSAI',
 		full: 'Fiber Serving Area Interface',
 		category: 'Network architecture and fiber plant',
-		image: aerialTerminalFieldImage,
+		image: releaseImage('aerial-terminal-field.jpg'),
 		meaning:
 			'A serving-area interface point used in fiber distribution terminology.',
 		field:
@@ -152,7 +129,7 @@ const acronyms: Acronym[] = [
 		key: 'GPON',
 		full: 'Gigabit-capable Passive Optical Network',
 		category: 'Passive optical technologies',
-		image: gponOltImage,
+		image: releaseImage('gpon-olt.jpg'),
 		meaning:
 			'A passive optical network technology used to deliver fiber service.',
 		field:
@@ -162,7 +139,7 @@ const acronyms: Acronym[] = [
 		key: 'XGS-PON',
 		full: '10-Gigabit Symmetric Passive Optical Network',
 		category: 'Passive optical technologies',
-		image: q1000kBottomImage,
+		image: releaseImage('q1000k-bottom.png'),
 		meaning:
 			'A higher-capacity PON technology designed for symmetric multi-gigabit service.',
 		field:
@@ -172,7 +149,7 @@ const acronyms: Acronym[] = [
 		key: 'SC',
 		full: 'SC fiber connector format',
 		category: 'Fiber connectors and optical measurements',
-		image: scApcConnectorImage,
+		image: releaseImage('sc-apc-connector.jpg'),
 		meaning:
 			'The rectangular push-pull fiber connector format used for the optical connection discussed in this guide.',
 		field:
@@ -182,7 +159,7 @@ const acronyms: Acronym[] = [
 		key: 'APC',
 		full: 'Angled Physical Contact',
 		category: 'Fiber connectors and optical measurements',
-		image: apcConnectorsImage,
+		image: releaseImage('apc-connectors.jpg'),
 		meaning:
 			'A fiber connector end-face polish with an angled mating surface intended to reduce optical reflections.',
 		field:
@@ -192,7 +169,7 @@ const acronyms: Acronym[] = [
 		key: 'OPM',
 		full: 'Optical Power Meter',
 		category: 'Fiber connectors and optical measurements',
-		image: opmFieldImage,
+		image: releaseImage('opm-field.jpg'),
 		meaning:
 			'A test instrument used to measure received optical power.',
 		field:
@@ -202,7 +179,7 @@ const acronyms: Acronym[] = [
 		key: 'VFL',
 		full: 'Visual Fault Locator',
 		category: 'Fiber connectors and optical measurements',
-		image: vflImage,
+		image: releaseImage('vfl.jpg'),
 		meaning:
 			'A visible-light fiber tool used for continuity checks and for locating certain breaks, severe bends, or incorrect paths.',
 		field:
@@ -212,7 +189,7 @@ const acronyms: Acronym[] = [
 		key: 'OTDR',
 		full: 'Optical Time-Domain Reflectometer',
 		category: 'Fiber connectors and optical measurements',
-		image: otdrFieldImage,
+		image: releaseImage('otdr-field.jpg'),
 		meaning:
 			'A diagnostic instrument that sends optical pulses into fiber and analyzes reflections and loss events along the route.',
 		field:
@@ -222,7 +199,7 @@ const acronyms: Acronym[] = [
 		key: 'dB',
 		full: 'decibel',
 		category: 'Fiber connectors and optical measurements',
-		image: dbLossImage,
+		image: releaseImage('db-loss.jpg'),
 		meaning:
 			'A relative logarithmic measurement used to describe gain or loss.',
 		field:
@@ -232,7 +209,7 @@ const acronyms: Acronym[] = [
 		key: 'dBm',
 		full: 'decibel-milliwatts',
 		category: 'Fiber connectors and optical measurements',
-		image: dbmPowerImage,
+		image: releaseImage('dbm-power.jpg'),
 		meaning:
 			'An absolute logarithmic power level referenced to one milliwatt.',
 		field:
@@ -242,7 +219,7 @@ const acronyms: Acronym[] = [
 		key: 'LAN',
 		full: 'Local Area Network',
 		category: 'Ethernet, Wi-Fi and customer networking',
-		image: ethernetRj45Image,
+		image: releaseImage('ethernet-rj45.jpg'),
 		meaning:
 			'The customer-side local network.',
 		field:
@@ -252,7 +229,7 @@ const acronyms: Acronym[] = [
 		key: 'WAN',
 		full: 'Wide Area Network',
 		category: 'Ethernet, Wi-Fi and customer networking',
-		image: w1700kBottomImage,
+		image: releaseImage('w1700k-bottom.png'),
 		meaning:
 			'The upstream network side of a router or gateway.',
 		field:
@@ -262,7 +239,7 @@ const acronyms: Acronym[] = [
 		key: 'SSID',
 		full: 'Service Set Identifier',
 		category: 'Ethernet, Wi-Fi and customer networking',
-		image: w1700kImage,
+		image: releaseImage('w1700k.png'),
 		meaning:
 			'The Wi-Fi network name that customer devices see when choosing a wireless network.',
 		field:
@@ -272,7 +249,7 @@ const acronyms: Acronym[] = [
 		key: 'GPS',
 		full: 'Global Positioning System',
 		category: 'Field workflow and location',
-		image: gpsFieldImage,
+		image: releaseImage('gps-field.webp'),
 		meaning:
 			'Satellite-based positioning used by phones and mapping tools to determine location.',
 		field:
@@ -282,7 +259,7 @@ const acronyms: Acronym[] = [
 		key: 'SOP',
 		full: 'Standard Operating Procedure',
 		category: 'Field workflow and location',
-		image: aerialTerminalFieldImage,
+		image: releaseImage('aerial-terminal-field.jpg'),
 		meaning:
 			'A defined procedure for performing work consistently and safely.',
 		field:
